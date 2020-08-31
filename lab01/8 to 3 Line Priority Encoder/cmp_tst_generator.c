@@ -34,7 +34,7 @@ for(int k=1;k<=8;k++){
     for(int i=0,l=1; i<max_power; i++){
         for(l=1;k>1&&l<=k-1; l++){
                 fprintf(ptrcmp,"|   0   ");
-                fprintf(ptrtst,"set x%d %d,\n",l-1,0);
+                fprintf(ptrtst,"set x%d %d, ",l-1,0);
         }
         fprintf(ptrcmp,"|   1   |");
         fprintf(ptrtst,"set x%d %d, ",l-1,1);
@@ -50,6 +50,10 @@ for(int k=1;k<=8;k++){
     max_power = max_power/2;
 
 }
+
+// Invalid Case
+fprintf(ptrtst,"set x0 0, set x1 0, set x2 0, set x3 0, set x4 0, set x5 0, set x6 0, set x7 0, eval, output;\n");
+fprintf(ptrcmp,"|   0   |   0   |   0   |   0   |   0   |   0   |   0   |   0   |   *   |   *   |   *   |");
 
 fclose(ptrcmp);
 fclose(ptrtst);
