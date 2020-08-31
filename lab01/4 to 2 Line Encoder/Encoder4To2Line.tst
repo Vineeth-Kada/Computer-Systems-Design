@@ -1,5 +1,5 @@
 load Encoder4To2Line.hdl,
-output-file Encoder4To2Liner.out,
+output-file Encoder4To2Line.out,
 compare-to Encoder4To2Line.cmp,
 
 output-list X0%B3.1.3 X1%B3.1.3 X2%B3.1.3 X3%B3.1.3 Y1%B3.1.3 Y0%B3.1.3;
