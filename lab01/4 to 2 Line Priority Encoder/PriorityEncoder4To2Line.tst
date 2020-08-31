@@ -49,5 +49,6 @@ eval, output;
 set X0 0, set X1 0, set X2 0, set X3 1,
 eval, output;
 
+/* Below is the invalid test case */
 set X0 0, set X1 0, set X2 0, set X3 0,
 eval, output;
