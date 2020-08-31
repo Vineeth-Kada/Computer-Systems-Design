@@ -1,0 +1,14 @@
+CHIP Encoder8To3Line {
+    IN X0, X1, X2, X3, X4, X5, X6, X7;
+    OUT Y2, Y1, Y0;
+    /* MSOPs: Y2 = X4 + X5 + X6 + X7,  Y1 = X2 + X3 + X6 + X7,  Y0 = X1 + X3 + X5 + X7*/
+    PARTS:
+    Or(a=X6, b=X7, out=w1);
+    Or(a=X4, b=X5, out=w2);
+    Or(a=X2, b=X3, out=w3);
+    Or(a=X5, b=X7, out=w4);
+    Or(a=X1, b=X3, out=w5);
+    Or(a=w1, b=w2, out=Y2);
+    Or(a=w1, b=w3, out=Y1);
+    Or(a=w4, b=w5, out=Y0); 
+}
