@@ -15,3 +15,14 @@ eval, output;
 
 set X0 0, set X1 0, set X2 0, set X3 1,
 eval, output;
+
+/**********************************************************************************************************/
+
+// Invalid test cases:
+
+set X0 0, set X1 0, set X2 0, set X3 0,
+eval, output;
+
+set X0 1, set X1 1, set X2 1, set X3 1,
+eval, output;
+
