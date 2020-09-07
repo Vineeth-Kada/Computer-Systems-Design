@@ -1,0 +1,36 @@
+CHIP Comparator8bit{
+    IN x7,x6,x5,x4,x3,x2,x1,x0, y7,y6,y5,y4,y3,y2,y1,y0;
+    OUT z;
+
+    // Formula used: z = NOT[   OR{Xor(x7,y7), Xor(x6,y6),......, Xor(x0,y0)} ]
+
+    PARTS:
+    // First finding Xor values of each bit of x,y.
+    Xor(a=x7, b=y7, out=p7);
+    Xor(a=x6, b=y6, out=p6);
+    Xor(a=x5, b=y5, out=p5);
+    Xor(a=x4, b=y4, out=p4);
+    Xor(a=x3, b=y3, out=p3);
+    Xor(a=x2, b=y2, out=p2);
+    Xor(a=x1, b=y1, out=p1);
+    Xor(a=x0, b=y0, out=p0);
+
+    // We have to do "OR" of 8 terms,
+    // So first divide them into 4pairs and find OR of the terms in each pair.
+    Or(a=p7, b=p6, out=a3);
+    Or(a=p5, b=p4, out=a2);
+    Or(a=p3, b=p2, out=a1);
+    Or(a=p1, b=p0, out=a0);
+
+    // Divide the resultant 4 into two pairs.
+    Or(a=a3, b=a2, out=b1);
+    Or(a=a1, b=a0, out=b0);
+
+    // Take OR the outcome of both pairs.
+    Or(a=b1, b=b0, out=notz);
+
+    // Finally we reached not(z) to get z apply not gate.
+    Not(in=notz, out=z);
+
+
+}

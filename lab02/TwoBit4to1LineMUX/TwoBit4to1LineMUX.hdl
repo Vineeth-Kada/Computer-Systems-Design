@@ -1,0 +1,46 @@
+CHIP TwoBit4to1LineMUX {
+
+    IN X01, X00, X11, X10, X21, X20, X31, X30, S1, S0;
+    OUT Y1, Y0;
+
+    // Formulae: Y1 = S1(bar)*S0(bar)*X01 + S1(bar)*S0*X11 + S1*S0(bar)*X21 + S1*S0*X31
+    //           Y0 = S1(bar)*S0(bar)*X00 + S1(bar)*S0*X10 + S1*S0(bar)*X20 + S1*S0*X30
+    PARTS:
+    Not(in=S1, out=notS1);
+    Not(in=S0, out=notS0);
+    
+    And(a=notS1, b=notS0, out=u1);  // S1(bar)*S0(bar)
+    And(a=notS1, b=S0, out=u2);     // S1(bar)*S0
+    And(a=S1, b=notS0, out=u3);     // S1*S0(bar)
+    And(a=S1, b=S0, out=u4);        // S1*S0
+
+    // Finding Y1
+    // First find individual terms for Y1 then apply OR
+    And(a=u1, b=X01, out=w1);
+    And(a=u2, b=X11, out=w2);
+    And(a=u3, b=X21, out=w3);
+    And(a=u4, b=X31, out=w4);
+
+    // For finding OR of four terms, first divide them into two pairs and find OR
+    // Then find OR of the resulatant two terms
+    Or(a=w1, b=w2, out=p1);
+    Or(a=w3, b=w4, out=p2);
+
+    Or(a=p1, b=p2, out=Y1);
+
+
+    // Finding Y0
+    // First find individual terms for Y0 then apply OR
+    And(a=u1, b=X00, out=v1);
+    And(a=u2, b=X10, out=v2);
+    And(a=u3, b=X20, out=v3);
+    And(a=u4, b=X30, out=v4);
+
+    // For finding OR of four terms, first divide them into two pairs and find OR
+    // Then find OR of the resulatant two terms
+    Or(a=v1, b=v2, out=q1);
+    Or(a=v3, b=v4, out=q2);
+
+    Or(a=q1, b=q2, out=Y0);
+
+}

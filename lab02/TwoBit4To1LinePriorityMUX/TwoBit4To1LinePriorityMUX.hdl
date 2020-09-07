@@ -1,0 +1,50 @@
+CHIP TwoBit4To1LinePriorityMUX {
+    IN R0, R1, R2, R3, X01, X00, X11, X10, X21, X20, X31, X30;
+    OUT Y1, Y0;
+    PARTS:
+    
+    //4 to 2 line priority encoder:
+
+    /* MSOPs: Y1 = R0(bar)*R1(bar), Y0 = R0(bar)*R1 + R0(bar)*R2(bar) */
+
+    Not(in=R0, out=notR0);
+    Not(in=R1, out=notR1);
+    Not(in=R2, out=notR2);
+    And(a=notR0, b=notR2, out=N1);
+    And(a=notR0, b=R1, out=N2);
+    And(a=notR0, b=notR1, out=S1);
+    Or(a=N1, b=N2, out=S0);
+
+    //2 Bit 4 to 1 line MUX:
+    
+    /* Y1 = S1(bar)*S0(bar)*X01 + S1(bar)*S0*X11 + S1*S0(bar)*X21 + S1*S0*X31
+       Y0 = S1(bar)*S0(bar)*X00 + S1(bar)*S0*X10 + S1*S0(bar)*X20 + S1*S0*X30  */
+
+    Not(in=S1, out=notS1);
+    Not(in=S0, out=notS0);
+    
+    And(a=notS1, b=notS0, out=u1);
+    And(a=notS1, b=S0, out=u2);
+    And(a=S1, b=notS0, out=u3);
+    And(a=S1, b=S0, out=u4);
+
+    And(a=u1, b=X00, out=v1);
+    And(a=u2, b=X10, out=v2);
+    And(a=u3, b=X20, out=v3);
+    And(a=u4, b=X30, out=v4);
+
+    And(a=u1, b=X01, out=w1);
+    And(a=u2, b=X11, out=w2);
+    And(a=u3, b=X21, out=w3);
+    And(a=u4, b=X31, out=w4);
+
+    Or(a=w1, b=w2, out=p1);
+    Or(a=w3, b=w4, out=p2);
+
+    Or(a=v1, b=v2, out=q1);
+    Or(a=v3, b=v4, out=q2);
+
+    Or(a=p1, b=p2, out=Y1);
+    Or(a=q1, b=q2, out=Y0);
+
+}

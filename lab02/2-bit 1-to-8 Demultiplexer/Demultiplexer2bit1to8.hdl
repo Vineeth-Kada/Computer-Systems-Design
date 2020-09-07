@@ -1,0 +1,67 @@
+CHIP Demultiplexer2bit1to8{
+    
+    IN s2,s1,s0,x1,x0;
+    OUT y01,y00,y11,y10,y21,y20,y31,y30,y41,y40,y51,y50,y61,y60,y71,y70;
+
+    PARTS:
+    Not(in=s2, out=nots2);
+    Not(in=s1, out=nots1);
+    Not(in=s0, out=nots0);
+
+    // y01 = not(s2) * not(s1) * not(s0) * x1
+    // y00 = not(s2) * not(s1) * not(s0) * x0
+    And(a=nots2, b=nots1, out=t1);
+    And(a=t1, b=nots0, out=t2);
+    And(a=t2, b=x1, out=y01);
+    And(a=t2, b=x0, out=y00);
+
+    // y11 = not(s2) * not(s1) * s0 * x1
+    // y10 = not(s2) * not(s1) * s0 * x0
+    And(a=nots2, b=nots1, out=t3);
+    And(a=t3, b=s0, out=t4);
+    And(a=t4, b=x1, out=y11);
+    And(a=t4, b=x0, out=y10);
+
+    // y21 = not(s2) * s1 * not(s0) * x1
+    // y20 = not(s2) * s1 * not(s0) * x0
+    And(a=nots2, b=s1, out=t5);
+    And(a=t5, b=nots0, out=t6);
+    And(a=t6, b=x1, out=y21);
+    And(a=t6, b=x0, out=y20);
+
+    // y31 = not(s2) * s1 * s0 * x1
+    // y30 = not(s2) * s1 * s0 * x0
+    And(a=nots2, b=s1, out=t7);
+    And(a=t7, b=s0, out=t8);
+    And(a=t8, b=x1, out=y31);
+    And(a=t8, b=x0, out=y30);
+
+    // y41 = s2 * not(s1) * not(s0) * x1
+    // y40 = s2 * not(s1) * not(s0) * x0
+    And(a=s2, b=nots1, out=t9);
+    And(a=t9, b=nots0, out=t10);
+    And(a=t10, b=x1, out=y41);
+    And(a=t10, b=x0, out=y40);
+
+    // y51 = s2 * not(s1) * s0 * x1
+    // y50 = s2 * not(s1) * s0 * x0
+    And(a=s2, b=nots1, out=t11);
+    And(a=t11, b=s0, out=t12);
+    And(a=t12, b=x1, out=y51);
+    And(a=t12, b=x0, out=y50);
+
+    // y61 = s2 * s1 * not(s0) * x1
+    // y60 = s2 * s1 * not(s0) * x0
+    And(a=s2, b=s1, out=t13);
+    And(a=t13, b=nots0, out=t14);
+    And(a=t14, b=x1, out=y61);
+    And(a=t14, b=x0, out=y60);
+
+    // y71 = s2 * s1 * s0 * x1
+    // y70 = s2 * s1 * s0 * x0
+    And(a=s2, b=s1, out=t15);
+    And(a=t15, b=s0, out=t16);
+    And(a=t16, b=x1, out=y71);
+    And(a=t16, b=x0, out=y70);
+
+}

@@ -1,0 +1,34 @@
+CHIP OneBitErrorDetection {
+    IN x0, x1, x2, x3, x4, x5, x6, x7, y0, y1, y2, y3, y4, y5, y6, y7;
+    OUT pg, pc, z;
+
+    /*================================================================================
+     * MSOP using XOR:
+     * pg= x0[XOR]x1[XOR]x2[XOR]x3[XOR]x4[XOR]x5[XOR]x6[XOR]x7
+     * pc= y0[XOR]y1[XOR]y2[XOR]y3[XOR]y4[XOR]y5[XOR]y6[XOR]y7
+     * z= pg[XOR]pc
+     *===============================================================================*/
+
+    PARTS:
+    Xor(a=x0, b=x1, out=s0);
+    Xor(a=s0, b=x2, out=s1);
+    Xor(a=s1, b=x3, out=s2);
+    Xor(a=s2, b=x4, out=s3);
+    Xor(a=s3, b=x5, out=s4);
+    Xor(a=s4, b=x6, out=s5);
+    Xor(a=s5, b=x7, out=s6);
+    Not(in=s6, out=ns6);
+
+    Xor(a=y0, b=y1, out=t0);
+    Xor(a=t0, b=y2, out=t1);
+    Xor(a=t1, b=y3, out=t2);
+    Xor(a=t2, b=y4, out=t3);
+    Xor(a=t3, b=y5, out=t4);
+    Xor(a=t4, b=y6, out=t5);
+    Xor(a=t5, b=y7, out=t6);
+    Not(in=t6, out=nt6);
+
+    Not(in=ns6, out=pg);
+    Not(in=nt6, out=pc);
+    Xor(a=s6, b=t6, out=z);
+}
