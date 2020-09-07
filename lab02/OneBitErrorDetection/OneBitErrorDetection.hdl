@@ -1,6 +1,6 @@
 CHIP OneBitErrorDetection {
     IN x0, x1, x2, x3, x4, x5, x6, x7, y0, y1, y2, y3, y4, y5, y6, y7;
-    OUT pg, pc, z;
+    OUT z;
 
     /*================================================================================
      * MSOP using XOR:
@@ -16,8 +16,7 @@ CHIP OneBitErrorDetection {
     Xor(a=s2, b=x4, out=s3);
     Xor(a=s3, b=x5, out=s4);
     Xor(a=s4, b=x6, out=s5);
-    Xor(a=s5, b=x7, out=s6);
-    Not(in=s6, out=ns6);
+    Xor(a=s5, b=x7, out=pg);
 
     Xor(a=y0, b=y1, out=t0);
     Xor(a=t0, b=y2, out=t1);
@@ -25,10 +24,7 @@ CHIP OneBitErrorDetection {
     Xor(a=t2, b=y4, out=t3);
     Xor(a=t3, b=y5, out=t4);
     Xor(a=t4, b=y6, out=t5);
-    Xor(a=t5, b=y7, out=t6);
-    Not(in=t6, out=nt6);
+    Xor(a=t5, b=y7, out=pc);
 
-    Not(in=ns6, out=pg);
-    Not(in=nt6, out=pc);
-    Xor(a=s6, b=t6, out=z);
+    Xor(a=pg, b=pc, out=z);
 }
