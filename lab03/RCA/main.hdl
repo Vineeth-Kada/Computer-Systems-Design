@@ -1,0 +1,10 @@
+CHIP main{
+    IN X[16], Y[16], cPin;
+    OUT S[16];
+
+    PARTS:
+
+        bitWiseXor(a=Y, b=cPin, out=Yin);
+        RCA16bit(X = X, Y = Yin, c0 = cPin, out = S);
+
+}
