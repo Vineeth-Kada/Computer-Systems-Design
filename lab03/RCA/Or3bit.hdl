@@ -1,8 +1,0 @@
-CHIP Or3bit {
-    IN a,b,c;
-    OUT out;
-
-    PARTS:
-        Or(a=a, b=b, out=temp);
-        Or(a=temp, b=c, out=out);
-}
