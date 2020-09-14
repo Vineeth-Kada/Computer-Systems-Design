@@ -14,6 +14,6 @@ CHIP Unsigned16BitRCAdderSubtractor{
 
         // For addition of Unsigned OF = c(n), where n=16 in this case.
         // For subtraction we need to check whether X>Y, but it is not asked in question.
-        RCA16bit(X = X, Y = Yin, carry0 = cPin, out = S, carry16 = carry16);
+        RCA16bit(X = X, Y = Yin, carry0 = cPin, out = S, carry16 = OF);
 
 }
