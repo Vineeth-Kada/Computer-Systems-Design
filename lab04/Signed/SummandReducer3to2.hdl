@@ -1,8 +1,13 @@
+/* This chip converts three summands to two summands in the form of a carry bus and a sum bus */
+
 CHIP SummandReducer3to2 {
     IN S1[16], S2[16], S3[16];
     OUT C[16], S[16];
 
     PARTS:
+    /*==========================================
+     * S[i]= S1[i] [XOR] S2[i] [XOR] S3[i]
+     *==========================================*/
     Xor3(a=S1[0], b=S2[0], c=S3[0], out=S[0]);
     Xor3(a=S1[1], b=S2[1], c=S3[1], out=S[1]);
     Xor3(a=S1[2], b=S2[2], c=S3[2], out=S[2]);
@@ -19,7 +24,11 @@ CHIP SummandReducer3to2 {
     Xor3(a=S1[13], b=S2[13], c=S3[13], out=S[13]);
     Xor3(a=S1[14], b=S2[14], c=S3[14], out=S[14]);
     Xor3(a=S1[15], b=S2[15], c=S3[15], out=S[15]);
-
+    
+    /*=============================================
+     * C[i+1]= S1[i]S2[i] + S2[i]S3[i] + S3[i]S1[i]
+     * C[i+1] is 1 if at least two inputs are 1
+     *=============================================*/
     Least2on3(a=false, b=false, c=false, out=C[0]);
     Least2on3(a=S1[0], b=S2[0], c=S3[0], out=C[1]);
     Least2on3(a=S1[1], b=S2[1], c=S3[1], out=C[2]);
