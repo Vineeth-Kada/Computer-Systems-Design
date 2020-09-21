@@ -1,0 +1,20 @@
+load MainChip.hdl,
+output-file MainChip.out,
+compare-to MainChip.cmp,
+
+output-list x%B1.8.1 y%B1.8.1 M%B1.8.1 OF%B3.1.3;
+
+// A pair of operands not resulting in overflow
+// x = 11, y = 16, M = 176, OF = 0
+set x %B00001011, set y %B00010000,
+eval, output;
+
+// A pair of operands not resulting in overflow
+// x = 14, y = 12, M = 168, OF = 0
+set x %B00001110, set y %B00001100,
+eval, output;
+
+// A pair of operands resulting in overflow
+// x = 20, y = 15, M = 300, OF = 1
+set x %B00010100, set y %B00001111,
+eval, output;

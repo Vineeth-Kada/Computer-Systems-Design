@@ -1,0 +1,12 @@
+CHIP HLTermsUnsigned16BitAdderSubtractor {
+    IN X[16], Y[16], cPin;
+    OUT S[16], OF;
+    PARTS:
+    bitWiseXor(a=Y, b=cPin, out=Yin);//here Y gets modified according to the operation to be performed
+    Xor16Bit(a=X, b=Yin, out=p);//propogate terms are being calculated
+    And16(a=X, b=Yin, out=g);//generate terms are being calculated
+    HigherLevelTerms(p=p, g=g, P=P, G=G);// higher level propogate and generate terms are being calculated
+    // c16 is the OF Bit
+    CalculateCarries(c0=cPin, p=p, g=g, P=P, G=G, c=c, c16=OF);//carries are being calculated
+    Xor16Bit(a=p, b=c, out=S);// sum is being calculated
+}
