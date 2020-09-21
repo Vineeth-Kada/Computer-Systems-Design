@@ -1,3 +1,5 @@
+/*Xor gate with a fan-in of 3*/
+
 CHIP Xor3 {
     IN a, b, c;
     OUT out;
