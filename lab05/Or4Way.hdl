@@ -1,6 +1,6 @@
 /* Or gate with a fan-in of 4 */
 
-CHIP Or4 {
+CHIP Or4Way {
     IN a,b,c,d;
     OUT out;
 

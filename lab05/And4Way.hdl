@@ -1,6 +1,6 @@
 /* And gate with a fan-in of 4 */
 
-CHIP And4 {
+CHIP And4Way {
     IN a,b,c,d;
     OUT out;
 
