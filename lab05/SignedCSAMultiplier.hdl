@@ -1,4 +1,4 @@
-CHIP MainChip {
+CHIP SignedCSAMultiplier {
     IN x[8],y[8];
     OUT M[8], OF;
 

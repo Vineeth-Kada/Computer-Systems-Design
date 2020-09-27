@@ -1,4 +1,4 @@
-CHIP SignBitExtender{
+CHIP SignBitExtenderSigned{
     IN in[8];
     OUT out[16];
     PARTS:

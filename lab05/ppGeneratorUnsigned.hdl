@@ -7,7 +7,7 @@ CHIP ppGeneratorUnsigned{
 
     // Adds zeroes infront of x and makes it a 16 bit binary number
     // for example x = 10101010 then extended x(ex) = 0000000010101010
-    SignBitExtender(in=x,out=ex);
+    SignBitExtenderUnsigned(in=x,out=ex);
 
     // Using Mux16 to duplicate a single bit into 16 bit number
     Mux16(a=false, b=true, sel=y[0], out=ey0);

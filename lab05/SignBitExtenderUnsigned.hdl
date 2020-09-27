@@ -1,4 +1,4 @@
-CHIP SignBitExtender{
+CHIP SignBitExtenderUnsigned{
     // As we are dealing with unsigned numbers for extending sign we can just add zeroes at front
     // We are taking an 8 bit unsigned integer and adding 8 zeros at front
     IN in[8];

@@ -9,7 +9,7 @@ CHIP ppGeneratorSigned{
     PARTS:
     
     // Extending an 8bit integer 'x' into a 16bit integer 'ex' using sign extension
-    SignBitExtender(in=x,out=ex);
+    SignBitExtenderSigned(in=x,out=ex);
 
     // Using Mux16 to duplicate a single bit into 16 bit number
     Mux16(a=false, b=true, sel=y[0], out=ey0);

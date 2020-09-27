@@ -1,4 +1,4 @@
-CHIP Xor3 {
+CHIP Xor3Way {
     IN a, b, c;
     OUT out;
 
