@@ -1,0 +1,47 @@
+CHIP Mux8Bit2to1 {
+    IN x[8], y[8], S0;
+    OUT out[8];
+    PARTS:
+    Not(in=S0, out=notS0);
+
+    //calculating out[0]
+    And(a=x[0], b=S0, out=w1);
+    And(a=y[0], b=notS0, out=w2);
+    Or(a=w1, b=w2, out=out[0]);
+
+    //calculating out[1]
+    And(a=x[1], b=S0, out=w3);
+    And(a=y[1], b=notS0, out=w4);
+    Or(a=w3, b=w4, out=out[1]);
+
+    //calculating out[2]
+    And(a=x[2], b=S0, out=w5);
+    And(a=y[2], b=notS0, out=w6);
+    Or(a=w5, b=w6, out=out[2]);
+
+    //calculating out[3]
+    And(a=x[3], b=S0, out=w7);
+    And(a=y[3], b=notS0, out=w8);
+    Or(a=w7, b=w8, out=out[3]);
+
+    //calculating out[4]
+    And(a=x[4], b=S0, out=w9);
+    And(a=y[4], b=notS0, out=w10);
+    Or(a=w9, b=w10, out=out[4]);
+
+    //calculating out[5]
+    And(a=x[5], b=S0, out=w11);
+    And(a=y[5], b=notS0, out=w12);
+    Or(a=w11, b=w12, out=out[0]);
+
+    //calculating out[6]
+    And(a=x[6], b=S0, out=w13);
+    And(a=y[6], b=notS0, out=w14);
+    Or(a=w13, b=w14, out=out[6]);
+
+    //calculating out[7]
+    And(a=x[7], b=S0, out=w15);
+    And(a=y[7], b=notS0, out=w16);
+    Or(a=w5, b=w16, out=out[7]);
+
+}

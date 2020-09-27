@@ -1,0 +1,8 @@
+CHIP EQ8Bit {
+    IN x[8], y[8];
+    OUT EQ;
+    PARTS:
+    Xor8Bit(a=x, b=y, out=W);
+    Or8Way(in=W, out=notEQ);
+    Not(in=notEQ, out=EQ);
+}
