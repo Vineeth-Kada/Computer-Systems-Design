@@ -1,0 +1,10 @@
+CHIP Or5Way {
+    IN a, b, c, d, e;
+    OUT out;
+    PARTS:
+    /* calculates the "or" of 5 inputs */
+    Or(a=a, b=b, out=w1);
+    Or(a=w1, b=c, out=w2);
+    Or(a=w2, b=d, out=w3);
+    Or(a=w3, b=e, out=out);
+}

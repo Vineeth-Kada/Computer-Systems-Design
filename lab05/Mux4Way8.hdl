@@ -1,0 +1,21 @@
+CHIP Mux4Way8{
+    IN sel[2],a[8],b[8],c[8],d[8];
+    OUT out[8];
+
+PARTS:
+    Not(in=sel[1], out=nsel1);
+    Not(in=sel[0], out=nsel0);
+    Not(in=nsel1, out=sel1);
+    Not(in=nsel0, out=sel2);
+
+    And(a=nots1, b=nots0, out=temp1);
+    And(a=nots1, b=s0, out=temp2);
+    And(a=s1, b=nots0, out=temp3);
+    And(a=s1, b=s0, out=temp4);
+
+    bitWiseAnd8(a=a, b=temp1, out=t1);
+    bitWiseAnd8(a=b, b=temp2, out=t2);
+    bitWiseAnd8(a=c, b=temp3, out=t3);
+    bitWiseAnd8(a=d, b=temp4, out=t4);
+    Or4Way8(a=t1,b=t2,c=t3,d=t4,out=out);
+}

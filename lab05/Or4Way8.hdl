@@ -1,0 +1,14 @@
+CHIP Or4Way8{
+    IN a[8],b[8],c[8],d[8];
+    OUT out[8];
+PARTS:
+    Or16(a[0..7]=a,a[8..15]=b, b[0..7]=c, b[8..15]=d out=temp);
+    Or(a=temp[0], b=temp[8], out=out[0]);
+    Or(a=temp[1], b=temp[9], out=out[1]);
+    Or(a=temp[2], b=temp[10], out=out[2]);
+    Or(a=temp[3], b=temp[11], out=out[3]);
+    Or(a=temp[4], b=temp[12], out=out[4]);
+    Or(a=temp[5], b=temp[13], out=out[5]);
+    Or(a=temp[6], b=temp[14], out=out[6]);
+    Or(a=temp[7], b=temp[15], out=out[7]);
+}

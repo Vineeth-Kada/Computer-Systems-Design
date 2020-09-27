@@ -1,0 +1,10 @@
+CHIP Main{
+    IN opCode[3],sPin,X[8],Y[8];
+    OUT OF,EQ,Z[8];
+
+    PARTS:
+        Mux4Way8(a=nop, b=and, c=or, d=xor, sel=opCode[0..1], out=M1);
+        Mux4Way8(a=add, b=aub, c=umul, d=imul, sel=opCode[0..1], out=M2);
+        Mux8(a=M1, b=M2, sel=opCode[2], out=Z);
+
+}
