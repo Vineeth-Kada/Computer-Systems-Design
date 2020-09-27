@@ -12,7 +12,7 @@ CHIP Main{
 
         SignedCLA8(X=X,Y=Y,cPin=false,S=and1);
         UnsignedCLA8(X=X,Y=Y,cPin=false,S=and2);
-        Mux8Bit2To1(a=and2, b=and1, sel=sPin, out=and);
+        Mux8Bit2To1(a=and2, b=and1, sel=sPin, out=add);
         
         SignedCLA8(X=X,Y=Y,cPin=true,S=sub1);
         UnsignedCLA8(X=X,Y=Y,cPin=true,S=sub2);
