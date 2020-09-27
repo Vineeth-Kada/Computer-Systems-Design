@@ -3,6 +3,8 @@ CHIP Main{
     OUT OF,EQ,Z[8];
 
     PARTS:
+
+        EQ8Bit(x=X,y=Y,EQ=EQ);
         Nop8Bit(a=X,b=Y,out=nop);
         And8Bit(a=X,b=Y,out=and);
         Or8Bit(a=X,b=Y,out=or);
@@ -16,7 +18,8 @@ CHIP Main{
         UnsignedCLA8(X=X,Y=Y,cPin=1,S=sub2);
         Mux8Bit2To1(a=sub2, b=sub1, sel=sPin, out=sub);
 
-        EQ8Bit(x=X,y=Y,EQ=EQ);    
+        SignedCSAMultiplier(x=X,y=Y,M=imul);
+        UnsignedCSAMultiplier(x=X,y=Y,M=umul);
 
         Mux8Bit4To1(a=nop, b=and, c=or, d=xor, sel=opCode[0..1], out=M1);
         Mux8Bit4To1(a=add, b=sub, c=umul, d=imul, sel=opCode[0..1], out=M2);
