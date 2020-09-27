@@ -1,4 +1,4 @@
-CHIP OFlowSignedCSA {
+CHIP FindOverflow {
     IN x, y, in[16];
     OUT OF;
     PARTS:
