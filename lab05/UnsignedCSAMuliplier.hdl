@@ -23,6 +23,6 @@ CHIP MainChip {
     HLTermsUnsigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=W,OF=OF1);
     
     //calculating overflow and sum
-    FindOverflow(in=W, OF=OF);
+    OFlowUnsignedCSA(in=W, OF=OF);
     And16(a=W, b=true, out[0..7]=M);
 }

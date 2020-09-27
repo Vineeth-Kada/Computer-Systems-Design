@@ -24,6 +24,6 @@ CHIP MainChip {
     HLTermsSigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=W,OF=OF1);
 
     //calculating overflow and sum
-    FindOverflow(x=x[7], y=y[7], in=W, OF=OF);
+    OFlowSignedCSA(x=x[7], y=y[7], in=W, OF=OF);
     And16(a=W, b=true, out[0..7]=M);
 }
