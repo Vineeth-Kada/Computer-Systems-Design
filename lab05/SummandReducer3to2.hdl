@@ -3,22 +3,22 @@ CHIP SummandReducer3to2 {
     OUT C[16], S[16];
 
     PARTS:
-    Xor3(a=S1[0], b=S2[0], c=S3[0], out=S[0]);
-    Xor3(a=S1[1], b=S2[1], c=S3[1], out=S[1]);
-    Xor3(a=S1[2], b=S2[2], c=S3[2], out=S[2]);
-    Xor3(a=S1[3], b=S2[3], c=S3[3], out=S[3]);
-    Xor3(a=S1[4], b=S2[4], c=S3[4], out=S[4]);
-    Xor3(a=S1[5], b=S2[5], c=S3[5], out=S[5]);
-    Xor3(a=S1[6], b=S2[6], c=S3[6], out=S[6]);
-    Xor3(a=S1[7], b=S2[7], c=S3[7], out=S[7]);
-    Xor3(a=S1[8], b=S2[8], c=S3[8], out=S[8]);
-    Xor3(a=S1[9], b=S2[9], c=S3[9], out=S[9]);
-    Xor3(a=S1[10], b=S2[10], c=S3[10], out=S[10]);
-    Xor3(a=S1[11], b=S2[11], c=S3[11], out=S[11]);
-    Xor3(a=S1[12], b=S2[12], c=S3[12], out=S[12]);
-    Xor3(a=S1[13], b=S2[13], c=S3[13], out=S[13]);
-    Xor3(a=S1[14], b=S2[14], c=S3[14], out=S[14]);
-    Xor3(a=S1[15], b=S2[15], c=S3[15], out=S[15]);
+    Xor3Way(a=S1[0], b=S2[0], c=S3[0], out=S[0]);
+    Xor3Way(a=S1[1], b=S2[1], c=S3[1], out=S[1]);
+    Xor3Way(a=S1[2], b=S2[2], c=S3[2], out=S[2]);
+    Xor3Way(a=S1[3], b=S2[3], c=S3[3], out=S[3]);
+    Xor3Way(a=S1[4], b=S2[4], c=S3[4], out=S[4]);
+    Xor3Way(a=S1[5], b=S2[5], c=S3[5], out=S[5]);
+    Xor3Way(a=S1[6], b=S2[6], c=S3[6], out=S[6]);
+    Xor3Way(a=S1[7], b=S2[7], c=S3[7], out=S[7]);
+    Xor3Way(a=S1[8], b=S2[8], c=S3[8], out=S[8]);
+    Xor3Way(a=S1[9], b=S2[9], c=S3[9], out=S[9]);
+    Xor3Way(a=S1[10], b=S2[10], c=S3[10], out=S[10]);
+    Xor3Way(a=S1[11], b=S2[11], c=S3[11], out=S[11]);
+    Xor3Way(a=S1[12], b=S2[12], c=S3[12], out=S[12]);
+    Xor3Way(a=S1[13], b=S2[13], c=S3[13], out=S[13]);
+    Xor3Way(a=S1[14], b=S2[14], c=S3[14], out=S[14]);
+    Xor3Way(a=S1[15], b=S2[15], c=S3[15], out=S[15]);
 
     Least2on3(a=false, b=false, c=false, out=C[0]);
     Least2on3(a=S1[0], b=S2[0], c=S3[0], out=C[1]);
