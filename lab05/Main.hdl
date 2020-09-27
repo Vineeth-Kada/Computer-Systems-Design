@@ -14,7 +14,7 @@ CHIP Main{
         Mux8Bit2To1(a=and2, b=and1, sel=sPin, out=add);
         
         SignedCLA8(X=X,Y=Y,cPin=true,S=sub1);
-        UnsignedBLS8(X=X,Y=Y,cPin=true,out=sub2);
+        UnsignedBLS8(X=X,Y=Y,out=sub2);
         Mux8Bit2To1(a=sub2, b=sub1, sel=sPin, out=sub);
 
         SignedCSAMultiplier(x=X,y=Y,M=imul);
