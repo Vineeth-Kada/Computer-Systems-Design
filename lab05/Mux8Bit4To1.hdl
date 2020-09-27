@@ -6,12 +6,12 @@ PARTS:
     Not(in=sel[1], out=nsel1);
     Not(in=sel[0], out=nsel0);
     Not(in=nsel1, out=sel1);
-    Not(in=nsel0, out=sel2);
+    Not(in=nsel0, out=sel0);
 
-    And(a=nots1, b=nots0, out=temp1);
-    And(a=nots1, b=s0, out=temp2);
-    And(a=s1, b=nots0, out=temp3);
-    And(a=s1, b=s0, out=temp4);
+    And(a=nsel1, b=nsel0, out=temp1);
+    And(a=nsel1, b=sel0, out=temp2);
+    And(a=sel1, b=nsel0, out=temp3);
+    And(a=sel1, b=sel0, out=temp4);
 
     bitWiseAnd8(a=a, b=temp1, out=t1);
     bitWiseAnd8(a=b, b=temp2, out=t2);
