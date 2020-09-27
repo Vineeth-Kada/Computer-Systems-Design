@@ -9,16 +9,17 @@ CHIP Main{
         Or8Bit(a=X,b=Y,out=or);
         Xor8Bit(a=X,b=Y,out=xor);
 
-        SignedCLA8(X=X,Y=Y,cPin=false,S=and1);
-        UnsignedCLA8(X=X,Y=Y,cPin=false,S=and2);
+        UnsignedCLA8(X=X,Y=Y,cPin=false,S=and2,OF=OF1);
+        SignedCLA8(X=X,Y=Y,cPin=false,S=and1,OF=OF2);
         Mux8Bit2To1(a=and2, b=and1, sel=sPin, out=add);
         
-        SignedCLA8(X=X,Y=Y,cPin=true,S=sub1);
-        UnsignedBLS8(X=X,Y=Y,out=sub2);
+        UnsignedBLS8(X=X,Y=Y,out=sub2,OF=OF3);
+        SignedCLA8(X=X,Y=Y,cPin=true,S=sub1,OF=OF4);
         Mux8Bit2To1(a=sub2, b=sub1, sel=sPin, out=sub);
 
-        SignedCSAMultiplier(x=X,y=Y,M=imul);
-        UnsignedCSAMultiplier(x=X,y=Y,M=umul);
+        UnsignedCSAMultiplier(x=X,y=Y,M=umul,OF=OF5);
+        SignedCSAMultiplier(x=X,y=Y,M=imul,OF=OF6);
+        
 
         Mux8Bit4To1(a=nop, b=and, c=or, d=xor, sel=opCode[0..1], out=M1);
         Mux8Bit4To1(a=add, b=sub, c=umul, d=imul, sel=opCode[0..1], out=M2);
