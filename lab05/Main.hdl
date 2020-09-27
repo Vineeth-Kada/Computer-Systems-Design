@@ -3,7 +3,6 @@ CHIP Main{
     OUT OF,EQ,Z[8];
 
     PARTS:
-
         EQ8Bit(x=X,y=Y,EQ=EQ);
         Nop8Bit(a=X,b=Y,out=nop);
         And8Bit(a=X,b=Y,out=and);
