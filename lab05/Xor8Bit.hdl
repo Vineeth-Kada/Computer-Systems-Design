@@ -1,6 +1,9 @@
-CHIP Xor8Bit {
+/* Xor gate with two 8 bit inputs */
+
+CHIP Xor8 {
     IN a[8], b[8];
     OUT out[8];
+
     PARTS:
     Xor(a=a[0], b=b[0], out=out[0]);
     Xor(a=a[1], b=b[1], out=out[1]);

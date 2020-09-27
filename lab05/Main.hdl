@@ -3,8 +3,22 @@ CHIP Main{
     OUT OF,EQ,Z[8];
 
     PARTS:
-        Mux4Way8(a=nop, b=and, c=or, d=xor, sel=opCode[0..1], out=M1);
-        Mux4Way8(a=add, b=aub, c=umul, d=imul, sel=opCode[0..1], out=M2);
-        Mux8(a=M1, b=M2, sel=opCode[2], out=Z);
+        Nop8Bit(a=X,b=Y,out=nop);
+        And8Bit(a=X,b=Y,out=and);
+        Or8Bit(a=X,b=Y,out=or);
+        Xor8Bit(a=X,b=Y,out=xor);
 
+        SignedCLA8(X=X,Y=Y,cPin=0,S=and1);
+        UnsignedCLA8(X=X,Y=Y,cPin=0,S=and2);
+        Mux8Bit2To1(a=and2, b=and1, sel=sPin, out=and);
+        
+        SignedCLA8(X=X,Y=Y,cPin=1,S=sub1);
+        UnsignedCLA8(X=X,Y=Y,cPin=1,S=sub2);
+        Mux8Bit2To1(a=sub2, b=sub1, sel=sPin, out=sub);
+
+        
+
+        Mux8Bit4To1(a=nop, b=and, c=or, d=xor, sel=opCode[0..1], out=M1);
+        Mux8Bit4To1(a=add, b=sub, c=umul, d=imul, sel=opCode[0..1], out=M2);
+        Mux8Bit2To1(a=M1, b=M2, sel=opCode[2], out=Z);
 }
