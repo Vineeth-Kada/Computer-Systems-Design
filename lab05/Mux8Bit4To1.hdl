@@ -17,5 +17,5 @@ PARTS:
     bitWiseAnd8(a=b, b=temp2, out=t2);
     bitWiseAnd8(a=c, b=temp3, out=t3);
     bitWiseAnd8(a=d, b=temp4, out=t4);
-    Or4Way8(a=t1,b=t2,c=t3,d=t4,out=out);
+    Or4Way8Bit(a=t1,b=t2,c=t3,d=t4,out=out);
 }
