@@ -5,6 +5,6 @@ CHIP Or4Way {
     OUT out;
 
     PARTS:
-    Or3(a=a,b=b,c=c,out=tmp1);
+    Or3Way(a=a,b=b,c=c,out=tmp1);
     Or(a=tmp1,b=d,out=out);
 }
