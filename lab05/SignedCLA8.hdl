@@ -7,8 +7,8 @@ CHIP SignedCLA8 {
 
     PARTS:
     /* Here, we find the 1s complement of the second integer as necessary */
-    Mux8(a=false, b=true, sel=cPin, out=T);
-    Xor8(a=Y, b=T, out[0..3]=Y0, out[4..7]=Y4);
+    Mux8Bit2To1(a=false, b=true, sel=cPin, out=T);
+    Xor8Bit2To1(a=Y, b=T, out[0..3]=Y0, out[4..7]=Y4);
 
     /*Here we generate the propagator and generator terms*/
     Xor8(a=X, b[0..3]=Y0, b[4..7]=Y4, out[0..3]=P0, out[4..7]=P4);

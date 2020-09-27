@@ -1,6 +1,6 @@
 /* 8 bit 2-to-1 multiplexer */
 
-CHIP Mux8 {
+CHIP Mux8Bit2To1 {
     IN a[8], b[8], sel;
     OUT out[8];
 
