@@ -1,10 +1,18 @@
+// Borrow look ahead based subtractor
+// Overflow occurs when borrow8 = 1
+
 CHIP UnsignedBLS8{
     IN X[8], Y[8];
     OUT out[8],OF;
 
     PARTS:
    
+        // Taking not of all bits of x and y
         Not16(in[0..7]=X,in[8..15]=Y, out[0]=notx0, out[1]=notx1, out[2]=notx2, out[3]=notx3, out[4]=notx4, out[5]=notx5, out[6]=notx6, out[7]=notx7, out[8]=noty0, out[9]=noty1, out[10]=noty2, out[11]=noty3, out[12]=noty4, out[13]=noty5, out[14]=noty6, out[15]=noty7);
+
+        // FORMULA: OUT[i] = X[i] {xor} Y[i] {xor} bi
+        // bi is the borrow i, b1 = 0
+        // bi = notX[i-1].b(i-1) + notX[i-1].Y[i-1] + Y[i-1].b(i-1)
 
         Xor3Way(a=X[0],b=Y[0],c=false,out=out[0]);
         And(a=notx0, b=false, out=t01);
@@ -54,6 +62,7 @@ CHIP UnsignedBLS8{
         And(a=Y[7], b=b7, out=t73);
         Or3Way(a=t71,b=t72,c=t73,out=b8);
 
+        // OF = b8
         Xor(a=b8,b=false,out=OF);
 
 }

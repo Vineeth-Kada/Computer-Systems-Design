@@ -1,3 +1,5 @@
+// 3 Way Xor, takes xor of a,b,c
+
 CHIP Xor3Way {
     IN a, b, c;
     OUT out;
