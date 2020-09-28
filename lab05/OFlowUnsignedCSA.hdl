@@ -1,7 +1,8 @@
 CHIP OFlowUnsignedCSA {
-    IN in[16];
-    OUT OF;
+    IN in[16];// in[16] is the product of inputs x[8] and y[8] before reducing to 8 bits
+    OUT OF;//OF is the overflow
     PARTS:
+    /* OF = p_n + p_n+1 + p_n+2 + ... + p_2n-2 + p_2n-1*/
     Or5Way(a=in[8], b=in[9], c=in[10], d=in[11], e=in[12], out=w1);
     Or5Way(a=in[13], b=in[14], c=in[15], d=w1, e=false, out=OF);
 }
