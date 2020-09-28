@@ -1,3 +1,5 @@
+// 4 way or on 8 bit inputs
+
 CHIP Or4Way8Bit{
     IN a[8],b[8],c[8],d[8];
     OUT out[8];

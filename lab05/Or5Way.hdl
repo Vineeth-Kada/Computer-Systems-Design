@@ -1,3 +1,5 @@
+// Five way or
+
 CHIP Or5Way {
     IN a, b, c, d, e;
     OUT out;

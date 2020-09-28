@@ -1,3 +1,6 @@
+// Converts a signed 8bit integer into a 16 bit integer using sign extension
+// in[7] is the sign bit so replace out[8..15] with in[7]
+
 CHIP SignBitExtenderSigned{
     IN in[8];
     OUT out[16];

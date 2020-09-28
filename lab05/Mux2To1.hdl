@@ -1,3 +1,6 @@
+// 2 to 1 multiplexer
+// out = a if sel=0 else out=b
+
 CHIP Mux2To1 {
     IN a, b, sel;
     OUT out;

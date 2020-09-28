@@ -1,3 +1,5 @@
+// 8Bit or taken bit wise
+
 CHIP Or8Bit {
     IN a[8], b[8];
     OUT out[8];

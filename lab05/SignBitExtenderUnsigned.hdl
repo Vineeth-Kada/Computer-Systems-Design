@@ -1,3 +1,4 @@
+// Adds zeroes infront of an 8 bit number and makes it a 16 bit binary number
 CHIP SignBitExtenderUnsigned{
     // As we are dealing with unsigned numbers for extending sign we can just add zeroes at front
     // We are taking an 8 bit unsigned integer and adding 8 zeros at front
