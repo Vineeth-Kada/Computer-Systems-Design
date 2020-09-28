@@ -1,3 +1,5 @@
+// Checks whether the two given 8 bit inputs are identical or not
+
 CHIP EQ8Bit {
     IN x[8], y[8];
     OUT EQ;

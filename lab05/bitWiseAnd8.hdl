@@ -1,3 +1,5 @@
+// Finds and of all bits of a[8] with bit b
+
 CHIP bitWiseAnd8 {
     IN a[8],b;
     OUT out[8];
