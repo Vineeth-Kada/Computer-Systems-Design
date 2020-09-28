@@ -67,7 +67,7 @@ eval, output;
 set X %B10000000, set Y %B10000000, set opCode %B100, set sPin 1,
 eval, output;
 
-/* ======================================== 10'
+/* ======================================== 10
  *  Operation SUB: opCode [101], unsigned
  *  X= 137, Y= 119 - no overflow
  *=========================================*/
@@ -75,48 +75,55 @@ set X %B10001001, set Y %B01110111, set opCode %B101, set sPin 0,
 eval, output;
 
 /* ======================================== 11
+ *  Operation SUB: opCode [101], unsigned
+ *  X= 119, Y= 137 - overflow
+ *=========================================*/
+set X %B01110111, set Y %B10001001, set opCode %B101, set sPin 0,
+eval, output;
+
+/* ======================================== 12
  *  Operation SUB: opCode [101], signed
  *  X= 10, Y= -5 - no overflow
  *=========================================*/
 set X %B00001010, set Y %B11111011, set opCode %B101, set sPin 1,
 eval, output;
 
-/* ======================================== 12
+/* ======================================== 13
  *  Operation SUB: opCode [101], signed
  *  X= 127, Y= -5 - positive overflow
  *=========================================*/
 set X %B01111111, set Y %B11111011, set opCode %B101, set sPin 1,
 eval, output;
 
-/* ======================================== 13
+/* ======================================== 14
  *  Operation SUB: opCode [101], signed
  *  X= -128, Y= 127 - negative overflow
  *=========================================*/
 set X %B10000000, set Y %B01111111, set opCode %B101, set sPin 1,
 eval, output;
 
-/* ======================================== 14
+/* ======================================== 15
  *  Operation MUL: opCode [110], unsigned
  *  X= 19, Y= 13 - no overflow
  *=========================================*/
 set X %B00010011, set Y %B00001101, set opCode %B110, set sPin 0,
 eval, output;
 
-/* ======================================== 15
+/* ======================================== 16
  *  Operation MUL: opCode [110], unsigned
  *  X= 20, Y= 20 - overflow
  *=========================================*/
 set X %B00010100, set Y %B00010100, set opCode %B110, set sPin 0,
 eval, output;
 
-/* ======================================== 16
+/* ======================================== 17
  *  Operation MUL: opCode [111], signed
  *  X= 10, Y= -5 - no overflow
  *=========================================*/
 set X %B00001010, set Y %B11111011, set opCode %B111, set sPin 1,
 eval, output;
 
-/* ======================================== 17
+/* ======================================== 18
  *  Operation MUL: opCode [111], signed
  *  X= 40, Y= -5 - overflow
  *=========================================*/
