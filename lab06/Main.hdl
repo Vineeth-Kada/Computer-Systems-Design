@@ -23,6 +23,7 @@ CHIP Main {
     UnsignedCLA8(X=X[7..14], Y=Y[7..14], cPin=false, S=SumXeYe);
     // If P15 is 0 then Ze = Xe + Ye - 127, Call this ZEunshifted
     // 127 - 001111111
+    // RBS - Ripple Borrow Subtractor
     RBS9(X=SumXeYe, Y[7..8]=false, Y[0..6]=true, out[0..7]=ZEunshifted);
     // If P15 is 1 then Ze = Xe + Ye - 126, Call this ZEshifted
     // 126 - 001111110
