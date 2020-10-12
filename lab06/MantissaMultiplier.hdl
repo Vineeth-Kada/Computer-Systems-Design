@@ -1,8 +1,11 @@
+// This multiplies two 8-bits integers using CSA
+
 CHIP MantissaMultiplier {
     IN x[8],y[8];
     OUT P[16];
 
     PARTS:
+    // Generating partial products
     ppGeneratorUnsigned(x=x, y=y, pp0=pp0, pp1=pp1, pp2=pp2, pp3=pp3, pp4=pp4, pp5=pp5, pp6=pp6, pp7=pp7);
 
     // First Level
