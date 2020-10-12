@@ -1,7 +1,0 @@
-CHIP FindOverflow {
-    IN in[16];
-    OUT OF;
-    PARTS:
-    Or5Way(a=in[8], b=in[9], c=in[10], d=in[11], e=in[12], out=w1);
-    Or5Way(a=in[13], b=in[14], c=in[15], d=w1, e=false, out=OF);
-}

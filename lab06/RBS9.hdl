@@ -1,9 +1,8 @@
-// Borrow look ahead based subtractor
-// Overflow occurs when borrow8 = 1
+// Ripple Borrow Subtractor 9B its
 
 CHIP RBS9 {
     IN X[9], Y[9];
-    OUT out[9];//,OF;
+    OUT out[9];
 
     PARTS:
    
@@ -26,57 +25,54 @@ CHIP RBS9 {
         And(a=notx0, b=false, out=t01);
         And(a=notx0, b=Y[0], out=t02);
         And(a=Y[0], b=false, out=t03);
-        Or3(a=t01,b=t02,c=t03,out=b1);
+        Or3Way(a=t01,b=t02,c=t03,out=b1);
 
         Xor3(a=X[1],b=Y[1],c=b1,out=out[1]);
         And(a=notx1, b=b1, out=t11);
         And(a=notx1, b=Y[1], out=t12);
         And(a=Y[1], b=b1, out=t13);
-        Or3(a=t11,b=t12,c=t13,out=b2);
+        Or3Way(a=t11,b=t12,c=t13,out=b2);
 
         Xor3(a=X[2],b=Y[2],c=b2,out=out[2]);
         And(a=notx2, b=b2, out=t21);
         And(a=notx2, b=Y[2], out=t22);
         And(a=Y[2], b=b2, out=t23);
-        Or3(a=t21,b=t22,c=t23,out=b3);
+        Or3Way(a=t21,b=t22,c=t23,out=b3);
 
         Xor3(a=X[3],b=Y[3],c=b3,out=out[3]);
         And(a=notx3, b=b3, out=t31);
         And(a=notx3, b=Y[3], out=t32);
         And(a=Y[3], b=b3, out=t33);
-        Or3(a=t31,b=t32,c=t33,out=b4);
+        Or3Way(a=t31,b=t32,c=t33,out=b4);
 
         Xor3(a=X[4],b=Y[4],c=b4,out=out[4]);
         And(a=notx4, b=b4, out=t41);
         And(a=notx4, b=Y[4], out=t42);
         And(a=Y[4], b=b4, out=t43);
-        Or3(a=t41,b=t42,c=t43,out=b5);
+        Or3Way(a=t41,b=t42,c=t43,out=b5);
 
         Xor3(a=X[5],b=Y[5],c=b5,out=out[5]);
         And(a=notx5, b=b5, out=t51);
         And(a=notx5, b=Y[5], out=t52);
         And(a=Y[5], b=b5, out=t53);
-        Or3(a=t51,b=t52,c=t53,out=b6);
+        Or3Way(a=t51,b=t52,c=t53,out=b6);
 
         Xor3(a=X[6],b=Y[6],c=b6,out=out[6]);
         And(a=notx6, b=b6, out=t61);
         And(a=notx6, b=Y[6], out=t62);
         And(a=Y[6], b=b6, out=t63);
-        Or3(a=t61,b=t62,c=t63,out=b7);
+        Or3Way(a=t61,b=t62,c=t63,out=b7);
 
         Xor3(a=X[7],b=Y[7],c=b7,out=out[7]);
         And(a=notx7, b=b7, out=t71);
         And(a=notx7, b=Y[7], out=t72);
         And(a=Y[7], b=b7, out=t73);
-        Or3(a=t71,b=t72,c=t73,out=b8);
+        Or3Way(a=t71,b=t72,c=t73,out=b8);
 
         Xor3(a=X[8],b=Y[8],c=b8,out=out[8]);
         And(a=notx8, b=b8, out=t81);
         And(a=notx8, b=Y[8], out=t82);
         And(a=Y[8], b=b8, out=t83);
-        Or3(a=t81,b=t82,c=t83,out=b9);
-
-        // OF = b9
-        //Xor(a=b9,b=false,out=OF);
+        Or3Way(a=t81,b=t82,c=t83,out=b9);
 
 }
