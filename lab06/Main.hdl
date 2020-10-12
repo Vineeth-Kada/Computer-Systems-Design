@@ -2,17 +2,29 @@ CHIP Main {
     IN X[16], Y[16];
     OUT Z[16];
 
-    PARTS:
-    UnsignedCLA8(X=X[7..14], Y=Y[7..14], cPin=false, S=SumXeYe);
 
-    UnsignedBLS9(X=SumXeYe, Y[7..8]=false, Y[0..6]=true, out[0..7]=ZEunshifted);
-    UnsignedBLS9(X=SumXeYe, Y[7..8]=false, Y[1..6]=true, Y[0..0]=false, out[0..7]=ZEshifted);
+    // X[15]    -   Xs [Sign Bit]
+    // X[14..7] -   Xe [Biased Exponent Bits]
+    // X[6..0]  -   Xm [Mantissa Bits]
+    
+    PARTS:
+    
+    UnsignedCLA8(X=X[7..14], Y=Y[7..14], cPin=false, S=SumXeYe);
 
     MantissaMultiplier(x[7..7]=true, x[0..6]=X[0..6], y[7..7]=true, y[0..6]=Y[0..6], M[15]=P15, M[8..14]=Zm1, M[7..13]=Zm2);
     MantissaShifter(a=Zm2, b=Zm1, sel=P15, out=Z[0..6]);
 
+    // Finding Exponent Bits Z[7..14]
+    // If P15 is 0 then Ze = Xe + Ye - 127, Call this ZEunshifted
+    // 127 - 001111111
+    UnsignedBLS9(X=SumXeYe, Y[7..8]=false, Y[0..6]=true, out[0..7]=ZEunshifted);
+    // If P15 is 1 then Ze = Xe + Ye - 126, Call this ZEshifted
+    // 126 - 001111110
+    UnsignedBLS9(X=SumXeYe, Y[7..8]=false, Y[1..6]=true, Y[0]=false, out[0..7]=ZEshifted);
     Mux8Bit2To1(a=ZEunshifted, b=ZEshifted, sel=P15, out=Z[7..14]);
 
+    // Finding Sign Bit Z[15]
+    // Z[15] = X[15] {XOR} Y[15]
     Xor(a=X[15], b=Y[15], out=Z[15]);
 
 }
