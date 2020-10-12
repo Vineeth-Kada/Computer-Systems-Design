@@ -1,6 +1,6 @@
 load Main.hdl,
 output-file Main.out,
-// compare-to Main.cmp,
+compare-to Main.cmp,
 
 output-list X%B1.16.1 Y%B1.16.1 Z%B1.16.1;
 
