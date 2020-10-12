@@ -27,6 +27,7 @@ CHIP Main {
     RBS9(X=SumXeYe, Y[7..8]=false, Y[0..6]=true, out[0..7]=ZEunshifted);
     // If P15 is 1 then Ze = Xe + Ye - 126, Call this ZEshifted
     // 126 - 001111110
+    // RBS - Ripple Borrow Subtractor
     RBS9(X=SumXeYe, Y[7..8]=false, Y[1..6]=true, Y[0]=false, out[0..7]=ZEshifted);
     Mux8Bit2To1(a=ZEunshifted, b=ZEshifted, sel=P15, out=Z[7..14]);
 
