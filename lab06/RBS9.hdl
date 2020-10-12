@@ -1,7 +1,7 @@
 // Borrow look ahead based subtractor
 // Overflow occurs when borrow8 = 1
 
-CHIP UnsignedBLS9 {
+CHIP RBS9 {
     IN X[9], Y[9];
     OUT out[9];//,OF;
 

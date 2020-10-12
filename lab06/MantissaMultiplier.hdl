@@ -1,6 +1,6 @@
 CHIP MantissaMultiplier {
     IN x[8],y[8];
-    OUT M[16];
+    OUT P[16];
 
     PARTS:
     ppGeneratorUnsigned(x=x, y=y, pp0=pp0, pp1=pp1, pp2=pp2, pp3=pp3, pp4=pp4, pp5=pp5, pp6=pp6, pp7=pp7);
@@ -23,5 +23,5 @@ CHIP MantissaMultiplier {
     HLTermsUnsigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=W,OF=OF1);
     
     //calculating and sum
-    And16(a=W, b=true, out=M);
+    And16(a=W, b=true, out=P);
 }
