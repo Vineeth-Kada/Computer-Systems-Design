@@ -1,14 +1,14 @@
 CHIP HackALU{
-    IN x, y, zx,  nx, zy, ny, f, n0
-    OUT out
+    IN x[16], y[16], zx,  nx, zy, ny, f, n0;
+    OUT out[16];
 
     PARTS:
         Mux16(a=x, b=false, sel=zx, out=xMUX0);
         Mux16(a=y, b=false, sel=zy, out=yMUX0);
-        Xor16Bit(a=xMUX0, b=nx, out=p);
-        Xor16Bit(a=yMUX0, b=ny, out=q);
+        bitWiseXor(a=xMUX0, b=nx, out=p);
+        bitWiseXor(a=yMUX0, b=ny, out=q);
         SignedCLA16(X=p,Y=q,S=pADDq);
         And16(a=p, b=q, out=pANDq);
         Mux16(a=pANDq, b=pADDq, sel=f, out=r);
-        Xor16Bit(a=r,b=n0,out=out);
+        bitWiseXor(a=r,b=n0,out=out);
 }
