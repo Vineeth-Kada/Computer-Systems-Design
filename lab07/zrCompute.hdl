@@ -1,0 +1,10 @@
+CHIP zrCompute {
+    IN x[16];
+    OUT zr;
+    PARTS:
+    Or5(a=x[0], b=x[1], c=x[2], d=x[3], e=x[4], out=w1);
+    Or5(a=x[5], b=x[6], c=x[7], d=x[8], e=x[9], out=w2);
+    Or5(a=x[10], b=x[11], c=x[12], d=x[13], e=x[14], out=w3);
+    Or5(a=x[15], b=w1, c=w2, d=w3, e=false, out=notzr);
+    Not(in=notzr, out=zr);
+}
