@@ -120,14 +120,3 @@ eval, output;
 
 set x %B0000000001110001, set y %B1111111111010100, set zx 0, set nx 1, set zy 0, set ny 1, set f 0, set n0 1,
 eval, output;
-
-
-
-
-
-
-
-
-
-
-
