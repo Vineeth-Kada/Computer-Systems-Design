@@ -4,7 +4,7 @@ CHIP bitWiseXor{
     OUT out[16];
 
     PARTS:
-    /* does bitWise "Xor" of a, with b and gives a 16 bit output*/
+    /* does bitWise "Xor" of a(16), with b(1) and gives a 16 bit output*/
         Xor(a=a[0], b=b, out = out[0]);
         Xor(a=a[1], b=b, out = out[1]);
         Xor(a=a[2], b=b, out = out[2]);
