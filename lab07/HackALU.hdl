@@ -29,8 +29,9 @@ CHIP HackALU{
         // First pass (x,0) and (y,0) to two different MUXs
         Mux16(a=x, b=false, sel=zx, out=xMUX0);
         Mux16(a=y, b=false, sel=zy, out=yMUX0);
-        // Taking BitWise XOR of xMUX0 with nx to get p
+        // Taking BitWise-XOR of xMUX0 with nx to get p
         bitWiseXor(a=xMUX0, b=nx, out=p);
+        // Taking BitWise-XOR of yMUX0 with ny to get q
         bitWiseXor(a=yMUX0, b=ny, out=q);
 
 
@@ -62,10 +63,15 @@ CHIP HackALU{
         SignedCLA16(X=p,Y=q,S=pADDq);
         And16(a=p, b=q, out=pANDq);
         Mux16(a=pANDq, b=pADDq, sel=f, out=r);
-        bitWiseXor(a=r,b=n0,out=v);
-        Xor16Bit(a=v, b=false, out=out);
+        bitWiseXor(a=r,b=n0,out[15]=signBit,out=outCopy);
+        Xor16Bit(a=outCopy, b=false, out=out);
 
-        ngCompute(x=v, ng=ng);
-        zrCompute(x=v, zr=zr);
-        Xor16Bit(a=v, b=false, out=out);
+        // ng = 1 if out < 0
+        //    = 0 if out >= 0
+        // ng = out[15] = signBit
+        Xor(a=signBit, b=false, out=ng);
+
+        // zr = 1 if out = 0
+        //    = 0 if out != 0
+        zrCompute(out=outCopy, zr=zr);
 }

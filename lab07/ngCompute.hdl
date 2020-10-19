@@ -1,6 +1,0 @@
-CHIP ngCompute{
-    IN x[16];
-    OUT ng;
-    PARTS:
-    Xor(a=x[15], b=false, out=ng);
-}
