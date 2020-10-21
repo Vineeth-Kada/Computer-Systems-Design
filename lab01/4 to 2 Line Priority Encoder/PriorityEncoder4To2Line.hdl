@@ -1,0 +1,13 @@
+CHIP PriorityEncoder4To2Line {
+    IN X0, X1, X2, X3;
+    OUT Y1, Y0;
+    /* MSOPs: Y1 = X0(bar)*X1(bar), Y0 = X0(bar)*X1 + X0(bar)*X2(bar) */ 
+    PARTS:
+    Not(in=X0, out=notX0);
+    Not(in=X1, out=notX1);
+    Not(in=X2, out=notX2);
+    And(a=notX0, b=notX2, out=w1);
+    And(a=notX0, b=X1, out=w2);
+    And(a=notX0, b=notX1, out=Y1);
+    Or(a=w1, b=w2, out=Y0);
+}
