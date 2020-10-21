@@ -25,5 +25,5 @@ CHIP MainChip {
 
     //calculating overflow and sum
     FindOverflow(x=x[7], y=y[7], p=p, OF=OF);
-    And16(a=W, b=true, out[0..7]=M);
+    And16(a=p, b=true, out[0..7]=M);
 }
