@@ -21,9 +21,9 @@ CHIP MainChip {
     SummandReducer3to2(S1=c31, S2=s31, S3=s22, C=c41, S=s41);
 
     // CLA with HL Terms
-    HLTermsSigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=W,OF=OF1);
+    HLTermsSigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=p,OF=OF1);
 
     //calculating overflow and sum
-    FindOverflow(x=x[7], y=y[7], in=W, OF=OF);
+    FindOverflow(x=x[7], y=y[7], p=p, OF=OF);
     And16(a=W, b=true, out[0..7]=M);
 }
