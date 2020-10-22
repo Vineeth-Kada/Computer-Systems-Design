@@ -1,0 +1,12 @@
+/* And gate with a fan-in of 5 */
+
+CHIP And5Way {
+    IN a, b, c, d, e;
+    OUT out;
+    PARTS:
+
+    And(a=a, b=b, out=w1);
+    And(a=w1, b=c, out=w2);
+    And(a=w2, b=d, out=w3);
+    And(a=w3, b=e, out=out);
+}

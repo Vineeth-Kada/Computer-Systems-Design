@@ -1,0 +1,10 @@
+/* Or gate with a fan-in of 5 */
+
+CHIP Or5 {
+    IN a,b,c,d,e;
+    OUT out;
+
+    PARTS:
+    Or4(a=a,b=b,c=c,d=d,out=tmp1);
+    Or(a=tmp1,b=e,out=out);
+}

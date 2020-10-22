@@ -1,0 +1,42 @@
+CHIP PriorityEncoder8to3Line {
+    IN x0,x1,x2,x3,x4,x5,x6,x7;
+    OUT y2,y1,y0;
+    PARTS:
+    Not(in=x0, out=nx0);
+    Not(in=x1, out=nx1);
+    Not(in=x2, out=nx2);
+    Not(in=x3, out=nx3);
+    Not(in=x4, out=nx4);
+    Not(in=x5, out=nx5);
+    Not(in=x6, out=nx6);
+    Not(in=x7, out=nx7);
+    
+    /*==============================================================
+     * y2=(!x0)(!x1)(!x2)(!x3)
+     ==============================================================*/
+    And(a=nx0,b=nx1,out=at1);
+    And(a=nx2,b=nx3,out=at2);
+    And(a=at1,b=at2,out=y2);
+
+    /*==============================================================
+     * y1=(!x0)(!x1)(x2+x3) + (!x0)(!x1)(!x2)(!x3)(!x4)(!x5)
+     ===============================================================*/ 
+    And(a=nx4,b=nx5,out=at3);
+    Or(a=x2,b=x3,out=bt1);
+    And(a=at1,b=bt1,out=term1);
+    And(a=at1,b=at2,out=ct1);
+    And(a=ct1,b=at3,out=term2);
+    Or(a=term1,b=term2,out=y1);
+
+    /*==============================================================
+     * y0=(!x0)(!x1)(!x2)(!x3)(!x4)(x5+(!x6)) + (!x0)(x1+x3(!x2)) 
+     ===============================================================*/
+    Or(a=x5,b=nx6,out=bt2);
+    And(a=bt2,b=nx4,out=ct2);
+    And(a=ct1,b=ct2,out=term3);
+    And(a=nx2,b=x3,out=d1);
+    Or(a=d1,b=x1,out=d2);
+    And(a=nx0,b=d2,out=term4);
+    Or(a=term3,b=term4,out=y0);
+
+}

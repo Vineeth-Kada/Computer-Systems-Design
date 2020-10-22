@@ -1,0 +1,60 @@
+CHIP ppGeneratorSigned{
+
+    IN x[8], y[8];
+    OUT pp0[16],pp1[16],pp2[16],pp3[16],pp4[16],pp5[16],pp6[16],pp7[16],pp8[16];
+    // ppi = ex.y[i].(2^i)  for every i in 0 to 6
+    // PartialProduct7 = -ex.y[7].(2^7) = (!ex).y[7].(2^7) + 1.y[7].(2^7)
+    // We took pp7=(!ex).y[7].(2^7) and pp8=1.y[7].(2^7)
+
+    PARTS:
+    
+    // Extending an 8bit integer 'x' into a 16bit integer 'ex' using sign extension
+    SignBitExtenderSigned(in=x,out=ex);
+
+    // Using Mux16 to duplicate a single bit into 16 bit number
+    Mux16(a=false, b=true, sel=y[0], out=ey0);
+    Mux16(a=false, b=true, sel=y[1], out=ey1);
+    Mux16(a=false, b=true, sel=y[2], out=ey2);
+    Mux16(a=false, b=true, sel=y[3], out=ey3);
+    Mux16(a=false, b=true, sel=y[4], out=ey4);
+    Mux16(a=false, b=true, sel=y[5], out=ey5);
+    Mux16(a=false, b=true, sel=y[6], out=ey6);
+    Mux16(a=false, b=true, sel=y[7], out=ey7);
+
+    
+    // pp0 requires no shifting
+    And16(a=ex, b=ey0, out=pp0);
+
+    // For ith partial product bits from  0 to i-1 should be zero as we are multiplying with 2^i
+    // For achieving those zeroes we are using sub buses of output of Not16 gate
+
+    And16(a=ex, b=ey1, out[0..14]=pp1[1..15]);
+    Not16(in=true, out[0]=pp1[0]);
+
+    And16(a=ex, b=ey2, out[0..13]=pp2[2..15]);
+    Not16(in=true, out[0..1]=pp2[0..1]);
+
+    And16(a=ex, b=ey3, out[0..12]=pp3[3..15]);
+    Not16(in=true, out[0..2]=pp3[0..2]);
+
+    And16(a=ex, b=ey4, out[0..11]=pp4[4..15]);
+    Not16(in=true, out[0..3]=pp4[0..3]);
+
+    And16(a=ex, b=ey5, out[0..10]=pp5[5..15]);
+    Not16(in=true, out[0..4]=pp5[0..4]);
+
+    And16(a=ex, b=ey6, out[0..9]=pp6[6..15]);
+    Not16(in=true, out[0..5]=pp6[0..5]);
+
+    // pp7 is also same as previous ppis but only change is we take not(ex) instead of ex
+    Not16(in=ex, out=notex);
+    And16(a=notex, b=ey7, out[0..8]=pp7[7..15]);
+    Not16(in=true, out[0..6]=pp7[0..6]);
+
+    // In pp8 we multiply 1 with y[7] and keep it in pp8[7] other bits should be zero
+    And(a=true, b=y[7], out=pp8[7]);
+    Not16(in=true, out[0..6]=pp8[0..6]);
+    Not16(in=true, out[8..15]=pp8[8..15]);
+
+}
+

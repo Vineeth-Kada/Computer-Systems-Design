@@ -1,0 +1,19 @@
+CHIP Unsigned16BitRCAdderSubtractor{
+
+    /* X,Y - 16Bit Unsigned integers
+     * cPin - Control Pin (0 for addition, 1 for subtraction)
+     * S = X+Y / X-Y
+     * OF - Overflow Bit */
+    IN X[16], Y[16], cPin;
+    OUT S[16], OF;
+
+    PARTS:
+
+        // Taking complement of Y in case of subtraction (cPin = 1)
+        bitWiseXor(a=Y, b=cPin, out=Yin);
+
+        // For addition of Unsigned OF = c(n), where n=16 in this case.
+        // For subtraction we need to check whether X>Y, but it is not asked in question.
+        RCA16bit(X = X, Y = Yin, carry0 = cPin, out = S, carry16 = OF);
+
+}

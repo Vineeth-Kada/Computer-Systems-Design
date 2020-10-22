@@ -1,0 +1,10 @@
+/* Or gate with a fan-in of 4 */
+
+CHIP Or4Way {
+    IN a,b,c,d;
+    OUT out;
+
+    PARTS:
+    Or3Way(a=a,b=b,c=c,out=tmp1);
+    Or(a=tmp1,b=d,out=out);
+}

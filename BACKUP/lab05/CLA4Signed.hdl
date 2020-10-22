@@ -1,0 +1,49 @@
+/* This version of the 4-bit CLA adder is meant for the last block in a signed integer adder/subtractor, and finds the overflow bit*/
+
+CHIP CLA4Signed {
+    /* We assume that the propagate and generate terms are already found */
+    IN X[4], Y[4], C0, P[4], G[4];
+    OUT S[4], OF;
+
+    PARTS:
+
+    /*=====================================================
+     * C1 = P0.C0 + G0
+     *=====================================================*/
+    And(a=P[0],b=C0,out=t00);
+    Or(a=t00,b=G[0],out=C1);
+
+    /*=====================================================
+     * C2 = P1.P0.C0 + P1.G0 + G1
+     *=====================================================*/
+    And3Way(a=P[1],b=P[0],c=C0,out=t10);
+    And(a=P[1],b=G[0],out=t11);
+    Or3Way(a=t10,b=t11,c=G[1],out=C2);
+
+    /*=====================================================
+     * C3 = P2.P1.P0.C0 + P2.P1.G0 + P2.G1 + G2
+     *=====================================================*/
+    And4Way(a=P[2],b=P[1],c=P[0],d=C0,out=t20);
+    And3Way(a=P[2],b=P[1],c=G[0],out=t21);
+    And(a=P[2],b=G[1],out=t22);
+    Or4Way(a=t20,b=t21,c=t22,d=G[2],out=C3);
+
+    /*=============================================================
+     * C4 = P3.P2.P1.P0.C0 + P3.P2.P1.G0 + P3.P2.G1 + P3.G2 + G3
+     *=============================================================*/
+    And5Way(a=P[3],b=P[2],c=P[1],d=P[0],e=C0,out=t30);
+    And4Way(a=P[3],b=P[2],c=P[1],d=G[0],out=t31);
+    And3Way(a=P[3],b=P[2],c=G[1],out=t32);
+    And(a=P[3],b=G[2],out=t33);
+    Or5Way(a=t30,b=t31,c=t32,d=t33,e=G[3],out=C4);
+
+    Xor(a=C3, b=C4, out=OF);
+
+    /*=====================================================
+     * Si=Pi[XOR]Ci
+     *=====================================================*/
+    Xor(a=P[0], b=C0, out=S[0]);
+    Xor(a=P[1], b=C1, out=S[1]);
+    Xor(a=P[2], b=C2, out=S[2]);
+    Xor(a=P[3], b=C3, out=S[3]);
+}
