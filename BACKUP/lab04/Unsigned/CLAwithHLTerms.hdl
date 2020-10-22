@@ -1,0 +1,11 @@
+CHIP CLAwithHLTerms {
+    IN X[16], Y[16];
+    OUT S[16], OF;
+    PARTS:
+        Xor16Bit(a=X, b=Y, out=p);//propogate terms are being calculated
+        And16(a=X, b=Y, out=g);//generate terms are being calculated
+        HigherLevelTerms(p=p, g=g, P=P, G=G);// higher level propogate and generate terms are being calculated
+        // c16 is the OF Bit
+        CalculateCarries(c0=false, p=p, g=g, P=P, G=G, c=c, c16=OF);//carries are being calculated
+        Xor16Bit(a=p, b=c, out=S);// sum is being calculated
+}

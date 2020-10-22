@@ -1,0 +1,22 @@
+/* This chip find the sum/difference of two 16-bit unsigned integers */
+
+CHIP UnsignedCLA16 {
+    /* Here, cPin chooses whether to perform addition[0] or subtraction[1] */
+    IN X[16], Y[16], cPin;
+    OUT S[16], OF;
+
+    PARTS:
+    /* Here, we find the 1s complement of the second integer as necessary */
+    Mux16(a=false, b=true, sel=cPin, out=T);
+    Xor16(a=Y, b=T, out[0..3]=Y0, out[4..7]=Y4, out[8..11]=Y8, out[12..15]=Y12);
+
+    /*Here we generate the propagator and generator terms*/
+    Xor16(a=X, b[0..3]=Y0, b[4..7]=Y4, b[8..11]=Y8, b[12..15]=Y12, out[0..3]=P0, out[4..7]=P4, out[8..11]=P8, out[12..15]=P12);
+    And16(a=X, b[0..3]=Y0, b[4..7]=Y4, b[8..11]=Y8, b[12..15]=Y12, out[0..3]=G0, out[4..7]=G4, out[8..11]=G8, out[12..15]=G12);
+
+    /*Here we use 4 sequential CLA based adders to find the sum- note that C0=cPin initially */
+    CLA4(X=X[0..3],Y=Y0,C0=cPin,P=P0,G=G0,S=S[0..3],C4=C4);
+    CLA4(X=X[4..7],Y=Y4,C0=C4,P=P4,G=G4,S=S[4..7],C4=C8);
+    CLA4(X=X[8..11],Y=Y8,C0=C8,P=P8,G=G8,S=S[8..11],C4=C12);
+    CLA4(X=X[12..15],Y=Y12,C0=C12,P=P12,G=G12,S=S[12..15],C4=OF);
+}

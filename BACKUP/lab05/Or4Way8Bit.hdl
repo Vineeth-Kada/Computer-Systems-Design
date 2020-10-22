@@ -1,0 +1,15 @@
+// 4 way or on 8 bit inputs
+
+CHIP Or4Way8Bit{
+    IN a[8],b[8],c[8],d[8];
+    OUT out[8];
+PARTS:
+    Or4Way(a=a[0],b=b[0],c=c[0],d=d[0],out=out[0]);
+    Or4Way(a=a[1],b=b[1],c=c[1],d=d[1],out=out[1]);
+    Or4Way(a=a[2],b=b[2],c=c[2],d=d[2],out=out[2]);
+    Or4Way(a=a[3],b=b[3],c=c[3],d=d[3],out=out[3]);
+    Or4Way(a=a[4],b=b[4],c=c[4],d=d[4],out=out[4]);
+    Or4Way(a=a[5],b=b[5],c=c[5],d=d[5],out=out[5]);
+    Or4Way(a=a[6],b=b[6],c=c[6],d=d[6],out=out[6]);
+    Or4Way(a=a[7],b=b[7],c=c[7],d=d[7],out=out[7]);
+}

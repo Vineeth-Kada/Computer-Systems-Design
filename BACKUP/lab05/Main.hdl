@@ -1,0 +1,55 @@
+CHIP Main{
+
+    // opCode -- opeartion  -- CHIP NAME
+    // 000    -- nop        -- Nop8Bit.hdl
+    // 001    -- and        -- And8Bit.hdl
+    // 010    -- or         -- Or8Bit.hdl
+    // 011    -- xor        -- Xor8Bit.hdl
+    // 100    -- add        -- UnsignedCLA8.hdl, SignedCLA8.hdl 
+    // 101    -- subtract   -- UnsignedBLS8.hdl, SignedCLA8.hdl
+    // 110    -- Unsign Mul -- UnsignedCSAMultiplier
+    // 111    -- Sign Mul   -- SignedCSAMultiplier
+
+    // sPin - 1 for signed, 0 for unsigned
+    // X,Y - 8Bit inputs
+    // EQ - 1 if X,Y are equal, else 0
+    // Z - X{operation}Y
+    // OF - Over Flow Bit
+    IN opCode[3],sPin,X[8],Y[8];
+    OUT OF,EQ,Z[8];
+
+    PARTS:
+        Not(in=sPin, out=notsPin);
+        EQ8Bit(x=X,y=Y,EQ=EQ); // Equality
+        Nop8Bit(a=X,b=Y,out=nop); // nop
+        And8Bit(a=X,b=Y,out=and); // and
+        Or8Bit(a=X,b=Y,out=or); // or
+        Xor8Bit(a=X,b=Y,out=xor); // xor
+
+        // Addition unsigned, signed
+        // Using 8bit 2 to 1 multiplexer with select pin as sign pin to distinguish signed and unsigned
+        UnsignedCLA8(X=X,Y=Y,cPin=false,S=and2,OF=OF10);
+        SignedCLA8(X=X,Y=Y,cPin=false,S=and1,OF=OF11);
+        Mux2To1(a=OF10, b=OF11, sel=sPin, out=OF1); // Overflow
+        Mux8Bit2To1(a=and2, b=and1, sel=sPin, out=add);
+        
+        // Subtraction unsigned, signed
+        // Using 8bit 2 to 1 multiplexer with select pin as sign pin to distinguish signed and unsigned
+        UnsignedBLS8(X=X,Y=Y,out=sub2,OF=OF20);
+        SignedCLA8(X=X,Y=Y,cPin=true,S=sub1,OF=OF21);
+        Mux2To1(a=OF20, b=OF21, sel=sPin, out=OF2); // Overflow
+        Mux8Bit2To1(a=sub2, b=sub1, sel=sPin, out=sub);
+
+        // Unsigned and signed multiplication
+        UnsignedCSAMultiplier(x=X,y=Y,M=umul,OF=OF3);
+        SignedCSAMultiplier(x=X,y=Y,M=imul,OF=OF4);
+        
+        // Using two 4 to 1 multiplexer with select pins as opCode[0], opCode[1]
+        Mux8Bit4To1(a=nop, b=and, c=or, d=xor, sel=opCode[0..1], out=M1);
+        Mux8Bit4To1(a=add, b=sub, c=umul, d=imul, sel=opCode[0..1], out=M2);
+        // Passing outputs of above two multiplexers into a 2 to 1 multiplexer with select pin as opCode[2]
+        Mux8Bit2To1(a=M1, b=M2, sel=opCode[2], out=Z);
+        // Finding resultant overflow
+        Mux8To1(a=false, b=false, c=false, d=false, e=OF1, f=OF2, g=OF3, h=OF4, sel=opCode, out=OF);
+        
+}

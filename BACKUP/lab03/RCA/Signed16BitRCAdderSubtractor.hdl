@@ -1,0 +1,20 @@
+CHIP Signed16BitRCAdderSubtractor{
+
+    /* X,Y - 16Bit Signed integers
+     * cPin - Control Pin (0 for addition, 1 for subtraction)
+     * S = X+Y / X-Y
+     * OF - Overflow Bit */
+    IN X[16], Y[16], cPin;
+    OUT S[16], OF;
+
+    PARTS:
+        // Taking complement of Y in case of subtraction (cPin = 1)
+        bitWiseXor(a=Y, b=cPin, out=Yin);
+
+        // Using the CHIP RCA16Bit.hdl for core logic
+        // In case of subtraction we take carry0 =  1 to achieve 2's complement of Y
+        RCA16bit(X = X, Y = Yin, carry0 = cPin, out = S, carry16 = carry16, carry15 = carry15);
+
+        // OF = c(n-1) Xor c(n)     Here, n = 16
+        Xor(a=carry16, b=carry15, out=OF);
+}

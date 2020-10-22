@@ -1,0 +1,15 @@
+CHIP FindOverflow {
+    IN x, y, p[16];
+    OUT OF;
+    PARTS:
+    Xor(a=x, b=y, out=w1);
+    Not(in=w1, out=notw1);
+    Or5Way(a=p[7], b=p[8], c=p[9], d=p[10], e=p[11], out=w2);
+    Or5Way(a=p[12], b=p[13], c=p[14], d=p[15], e=w2, out=w3);
+    And(a=w3, b=notw1, out=v1);
+    And5Way(a=p[7], b=p[8], c=p[9], d=p[10], e=p[11], out=w4);
+    And5Way(a=p[12], b=p[13], c=p[14], d=p[15], e=w4, out=w5); 
+    Not(in=w5, out=notw5);
+    And(a=notw5, b=w1, out=v2);
+    Or(a=v1, b=v2, out=OF);
+}

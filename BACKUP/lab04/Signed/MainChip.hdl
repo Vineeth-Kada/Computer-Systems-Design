@@ -1,0 +1,29 @@
+CHIP MainChip {
+    IN x[8],y[8];
+    OUT M[8], OF;
+
+    PARTS:
+    ppGeneratorSigned(x=x, y=y, pp0=pp0, pp1=pp1, pp2=pp2, pp3=pp3, pp4=pp4, pp5=pp5, pp6=pp6, pp7=pp7, pp8=pp8);
+
+    // First Level
+    SummandReducer3to2(S1=pp0, S2=pp1, S3=pp2, C=c11, S=s11);
+    SummandReducer3to2(S1=pp3, S2=pp4, S3=pp5, C=c12, S=s12);
+    SummandReducer3to2(S1=pp6, S2=pp7, S3=pp8, C=c13, S=s13);
+
+    // Second Level
+    SummandReducer3to2(S1=c11, S2=s11, S3=c12, C=c21, S=s21);
+    SummandReducer3to2(S1=s12, S2=c13, S3=s13, C=c22, S=s22);
+
+    // Third Level
+    SummandReducer3to2(S1=c21, S2=s21, S3=c22, C=c31, S=s31);
+
+    // Fourth Level
+    SummandReducer3to2(S1=c31, S2=s31, S3=s22, C=c41, S=s41);
+
+    // CLA with HL Terms
+    HLTermsSigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=p,OF=OF1);
+
+    //calculating overflow and sum
+    FindOverflow(x=x[7], y=y[7], p=p, OF=OF);
+    And16(a=p, b=true, out[0..7]=M);
+}

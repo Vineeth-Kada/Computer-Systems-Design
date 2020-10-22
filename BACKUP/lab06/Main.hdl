@@ -1,0 +1,40 @@
+CHIP Main {
+    IN X[16], Y[16];
+    OUT Z[16];
+
+
+    // X[15]    -   Xs [Sign Bit]
+    // X[14..7] -   Xe [Biased Exponent Bits]
+    // X[6..0]  -   Xm [Mantissa Bits]
+    
+    PARTS:
+    
+    // Finding Mantissa Bits Z[0..6]
+    // P(24 bits) = 1.Xm * 1.Ym
+    // If P15 = 1 then, Zm = Zm1 = P[14..8]
+    // If P15 = 0 then, Zm = Zm2 = P[13..7]
+    MantissaMultiplier(x[7]=true, x[0..6]=X[0..6], y[7]=true, y[0..6]=Y[0..6], P[15]=P15, P[8..14]=Zm1, P[7..13]=Zm2);
+    // MantissaShifter is a 7 bit 2To1 multiplexer
+    MantissaShifter(a=Zm2, b=Zm1, sel=P15, out=Z[0..6]);
+
+
+    // Finding Exponent Bits Z[7..14]
+    // First Find Xe + Ye
+    UnsignedCLA8(X=X[7..14], Y=Y[7..14], cPin=false, S=SumXeYe);
+    // If P15 is 0 then Ze = Xe + Ye - 127, Call this ZEunshifted
+    // 127 - 001111111
+    // RBS - Ripple Borrow Subtractor
+    RBS9(X=SumXeYe, Y[7..8]=false, Y[0..6]=true, out[0..7]=ZEunshifted);
+    // If P15 is 1 then Ze = Xe + Ye - 126, Call this ZEshifted
+    // 126 - 001111110
+    // RBS - Ripple Borrow Subtractor
+    RBS9(X=SumXeYe, Y[7..8]=false, Y[1..6]=true, Y[0]=false, out[0..7]=ZEshifted);
+    Mux8Bit2To1(a=ZEunshifted, b=ZEshifted, sel=P15, out=Z[7..14]);
+
+
+    // Finding Sign Bit Z[15]
+    // Z[15] = X[15] {XOR} Y[15]
+    Xor(a=X[15], b=Y[15], out=Z[15]);
+
+
+}

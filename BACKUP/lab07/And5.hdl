@@ -1,0 +1,10 @@
+/* And gate with a fan-in of 5 */
+
+CHIP And5 {
+    IN a,b,c,d,e;
+    OUT out;
+
+    PARTS:
+    And4(a=a,b=b,c=c,d=d,out=tmp1);
+    And(a=tmp1,b=e,out=out);
+}
