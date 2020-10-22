@@ -1,47 +1,47 @@
-/* This chip is the basis of the carry look based adder without higher order terms */
+/* 4-Bit CLA without HLTerms */
 
 CHIP CLA4 {
     /* We assume that the propagate and generate terms are already found */
-    IN X[4], Y[4], C0, P[4], G[4];
-    OUT S[4], C4;
+    IN X[4], Y[4], c0, p[4], g[4]; //c0 is carry0, p[4],g[4] are propagate and generate terms
+    OUT S[4], c4; //S[4] is X+Y, c4 is carry4
 
     PARTS:
 
     /*=====================================================
-     * C1 = P0.C0 + G0
+     * c1 = p0.c0 + g0
      *=====================================================*/
-    And(a=P[0],b=C0,out=t00);
-    Or(a=t00,b=G[0],out=C1);
+    And(a=p[0],b=c0,out=p0c0);
+    Or(a=p0.c0,b=g[0],out=c1);
 
     /*=====================================================
-     * C2 = P1.P0.C0 + P1.G0 + G1
+     * c2 = p1.p0.c0 + p1.g0 + g1
      *=====================================================*/
-    And3(a=P[1],b=P[0],c=C0,out=t10);
-    And(a=P[1],b=G[0],out=t11);
-    Or3(a=t10,b=t11,c=G[1],out=C2);
+    And3(a=p[1],b=p[0],c=c0,out=p1p0c0);
+    And(a=p[1],b=g[0],out=p1g0);
+    Or3(a=p1p0c0,b=p1g0,c=g[1],out=c2);
 
     /*=====================================================
-     * C3 = P2.P1.P0.C0 + P2.P1.G0 + P2.G1 + G2
+     * c3 = p2.p1.p0.c0 + p2.p1.g0 + p2.g1 + g2
      *=====================================================*/
-    And4(a=P[2],b=P[1],c=P[0],d=C0,out=t20);
-    And3(a=P[2],b=P[1],c=G[0],out=t21);
-    And(a=P[2],b=G[1],out=t22);
-    Or4(a=t20,b=t21,c=t22,d=G[2],out=C3);
+    And4(a=p[2],b=p[1],c=p[0],d=c0,out=p2p1p0c0);
+    And3(a=p[2],b=p[1],c=g[0],out=p2p1g0);
+    And(a=p[2],b=g[1],out=p2g1);
+    Or4(a=p2p1p0c0,b=p2p1g0,c=p2g1,d=g[2],out=c3);
 
     /*=============================================================
-     * C4 = P3.P2.P1.P0.C0 + P3.P2.P1.G0 + P3.P2.G1 + P3.G2 + G3
+     * c4 = p3.p2.p1.p0.c0 + p3.p2.p1.g0 + p3.p2.g1 + p3.g2 + g3
      *=============================================================*/
-    And5(a=P[3],b=P[2],c=P[1],d=P[0],e=C0,out=t30);
-    And4(a=P[3],b=P[2],c=P[1],d=G[0],out=t31);
-    And3(a=P[3],b=P[2],c=G[1],out=t32);
-    And(a=P[3],b=G[2],out=t33);
-    Or5(a=t30,b=t31,c=t32,d=t33,e=G[3],out=C4);
+    And5(a=p[3],b=p[2],c=p[1],d=p[0],e=c0,out=p3p2p1p0c0);
+    And4(a=p[3],b=p[2],c=p[1],d=g[0],out=p3p2p1g0);
+    And3(a=p[3],b=p[2],c=g[1],out=p3p2g1);
+    And(a=p[3],b=g[2],out=p3g2);
+    Or5(a=p3p2p1p0c0,b=p3p2p1g0,c=p3p2g1,d=p3g2,e=g[3],out=c4);
 
     /*=====================================================
-     * Si=Pi[XOR]Ci
+     * Si=pi[XOR]ci
      *=====================================================*/
-    Xor(a=P[0], b=C0, out=S[0]);
-    Xor(a=P[1], b=C1, out=S[1]);
-    Xor(a=P[2], b=C2, out=S[2]);
-    Xor(a=P[3], b=C3, out=S[3]);
+    Xor(a=p[0], b=c0, out=S[0]);
+    Xor(a=p[1], b=c1, out=S[1]);
+    Xor(a=p[2], b=c2, out=S[2]);
+    Xor(a=p[3], b=c3, out=S[3]);
 }

@@ -60,7 +60,7 @@ CHIP HackALU{
                                               │                             
                                              out                            
         */
-        SignedCLA16(X=p,Y=q,S=pADDq);
+        Adder16Bit(X=p,Y=q,S=pADDq);
         And16(a=p, b=q, out=pANDq);
         Mux16(a=pANDq, b=pADDq, sel=f, out=r);
         bitWiseXor(a=r,b=n0,out[15]=signBit,out=outCopy);
