@@ -2,7 +2,7 @@ load HackALU.hdl,
 output-file HackALU.out,
 compare-to HackALU.cmp,
 
-output-list x%B1.16.1 y%B1.16.1 zx%B3.1.3 nx%B3.1.3 zy%B3.1.3 ny%B3.1.3 f%B3.1.3 n0%B3.1.3 zr%B3.1.3 ng%B3.1.3 out%B1.16.1;
+output-list x%B1.16.1 y%B1.16.1 zx%B3.1.3 nx%B3.1.3 zy%B3.1.3 ny%B3.1.3 f%B3.1.3 n0%B3.1.3 out%B1.16.1 zr%B3.1.3 ng%B3.1.3 ;
 
 //x and y are positive, x > y
 //x = 126, y =79
