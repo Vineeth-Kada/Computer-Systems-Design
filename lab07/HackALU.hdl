@@ -6,7 +6,7 @@ CHIP HackALU{
     PARTS:
 
         /*
-                    x if zx = 0                 y if zy = 0
+            xMUX0 = x if zx = 0         yMUX0 = y if zy = 0
                     0 if zx = 1                 0 if zy = 1
 
                     x       0                    y       0      
@@ -60,11 +60,10 @@ CHIP HackALU{
                                               │                             
                                              out                            
         */
-        Adder16Bit(X=p,Y=q,S=pADDq);
-        And16(a=p, b=q, out=pANDq);
-        Mux16(a=pANDq, b=pADDq, sel=f, out=r);
-        bitWiseXor(a=r,b=n0,out[15]=signBit,out=outCopy);
-        Xor16Bit(a=outCopy, b=false, out=out);
+        Adder16Bit(X=p,Y=q,S=pADDq); // p + q
+        And16(a=p, b=q, out=pANDq); // p & q
+        Mux16(a=pANDq, b=pADDq, sel=f, out=r); // (p + q)MUX(p & q)
+        bitWiseXor(a=r,b=n0,out[15]=signBit,out=out, out=outCopy); // out and outCopy are same
 
         // ng = 1 if out < 0
         //    = 0 if out >= 0

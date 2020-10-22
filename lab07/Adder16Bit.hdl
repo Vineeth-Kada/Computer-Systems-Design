@@ -13,7 +13,7 @@ CHIP Adder16Bit {
 
         /* Here we use 4 sequential CLA based adders to find the sum- note that C0=cPin initially */
         CLA4(X=X[0..3],     Y=Y[0..3],      c0=false,   p=PBus0,    g=GBus0,    S=S[0..3],  c4=c4);
-        CLA4(X=X[4..7],     Y=Y[4..7],      c0=C4,      p=PBus4,    g=GBus4,    S=S[4..7],  c4=c8);
-        CLA4(X=X[8..11],    Y=Y[8..11],     c0=C8,      p=PBus8,    g=GBus8,    S=S[8..11], c4=c12);
-        CLA4(X=X[12..15],   Y=Y[12..15],    c0=C12,     p=PBus12,   g=GBus12,   S=S[12..15],c4=c16);
+        CLA4(X=X[4..7],     Y=Y[4..7],      c0=c4,      p=PBus4,    g=GBus4,    S=S[4..7],  c4=c8);
+        CLA4(X=X[8..11],    Y=Y[8..11],     c0=c8,      p=PBus8,    g=GBus8,    S=S[8..11], c4=c12);
+        CLA4(X=X[12..15],   Y=Y[12..15],    c0=c12,     p=PBus12,   g=GBus12,   S=S[12..15],c4=c16);
 }

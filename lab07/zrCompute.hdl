@@ -5,9 +5,9 @@ CHIP zrCompute {
         // zr = 1 if out = 0
         //    = 0 if out != 0
         // If out != 0 then atleast one bit of out(16) is non zero
-        Or5(a=out[0], b=out[1], c=out[2], d=out[3], e=out[4], out=w1);
-        Or5(a=out[5], b=out[6], c=out[7], d=out[8], e=out[9], out=w2);
-        Or5(a=out[10], b=out[11], c=out[12], d=out[13], e=out[14], out=w3);
-        Or5(a=out[15], b=w1, c=w2, d=w3, e=false, out=notzr);
+        Or5(a=out[0], b=out[1], c=out[2], d=out[3], e=out[4], out=temp1);
+        Or5(a=out[5], b=out[6], c=out[7], d=out[8], e=out[9], out=temp2);
+        Or5(a=out[10], b=out[11], c=out[12], d=out[13], e=out[14], out=temp3);
+        Or5(a=out[15], b=temp1, c=temp2, d=temp3, e=false, out=notzr);
         Not(in=notzr, out=zr);
 }
