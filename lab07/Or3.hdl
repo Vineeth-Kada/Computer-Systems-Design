@@ -5,6 +5,6 @@ CHIP Or3 {
     OUT out;
 
     PARTS:
-    Or(a=a, b=b, out=tmp1);
-    Or(a=tmp1, b=c, out=out);
+    Or(a=a, b=b, out=aORb);
+    Or(a=aORb, b=c, out=out);
 }
