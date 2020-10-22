@@ -1,6 +1,6 @@
 /* Returns true if at least 2 of the inputs are true*/
 
-CHIP Least2on3 {
+CHIP Atleast2in3 {
     IN a, b, c;
     OUT out;
 
