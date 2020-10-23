@@ -22,8 +22,8 @@ CHIP MainChip {
     SummandReducer3to2(S1=c20, S2=s20, S3=s11, C=c30, S=s30);
 
     // CLA with HL Terms
-    HLTermsUnsigned16BitAdderSubtractor(X=c30,Y=s30,cPin=false,S=W,S[0..7]=Z);
+    Adder16Bit(X=c30,Y=s30,S=P,S[0..7]=Z); // S(16) = c30 + s30. Z is an 8bit number so consider only S[0..7]
     
     //calculating overflow
-    FindOverflow(in=W, OF=OF);
+    FindOverflow(P=P, OF=OF);
 }

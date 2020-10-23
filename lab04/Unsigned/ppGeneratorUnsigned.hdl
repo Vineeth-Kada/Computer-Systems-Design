@@ -1,10 +1,19 @@
 CHIP ppGeneratorUnsigned{
+// Partial Product Generator for unsigned multiplication
 
     IN X[8], Y[8];
-    OUT pp0[16],pp1[16],pp2[16],pp3[16],pp4[16],pp5[16],pp6[16],pp7[16];
+    OUT pp0[16],pp1[16],pp2[16],pp3[16],pp4[16],pp5[16],pp6[16],pp7[16]; // Partial products
 
     PARTS:
     
+
+        // ppi = X.Y[i].2^i;
+        // As we are shifing by i digits to left, ppi[0..i] will be zero
+
+        // We are using 16Bit multiplexers to find partial products
+        // If y[i] = 1 then output will be X, else output will be 0.
+        // Now we need to shift the output to generate partial products
+        // X is an 8 bit number so out[8..15] will be zero, we are using this property to shift partial products
         Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[0], out=pp0);
         Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[1], out[0..14]=pp1[1..15],out[15]=pp1[0]);
         Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[2], out[0..13]=pp2[2..15], out[14..15]=pp2[0..1]);

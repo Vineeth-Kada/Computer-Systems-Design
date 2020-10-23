@@ -1,4 +1,4 @@
-CHIP CLAwithHLTerms {
+CHIP Adder16Bit {
     IN X[16], Y[16];
     OUT S[16], OF;
     PARTS:

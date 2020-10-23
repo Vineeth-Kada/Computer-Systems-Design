@@ -1,7 +1,9 @@
 CHIP FindOverflow {
-    IN in[16];
+    // Overflow in case of unsigned integer multiplication
+    // OF = Or(p15,p14,p13,p12,p11,p10,p9,p8)
+    IN P[16];
     OUT OF;
     PARTS:
-    Or5Way(a=in[8], b=in[9], c=in[10], d=in[11], e=in[12], out=w1);
-    Or5Way(a=in[13], b=in[14], c=in[15], d=w1, e=false, out=OF);
+        Or5Way(a=P[8], b=P[9], c=P[10], d=P[11], e=P[12], out=temp);
+        Or5Way(a=P[13], b=P[14], c=P[15], d=temp, e=false, out=OF);
 }
