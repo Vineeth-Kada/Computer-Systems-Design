@@ -1,6 +1,6 @@
 load MainChip.hdl,
 output-file MainChip.out,
-//compare-to MainChip.cmp,
+compare-to MainChip.cmp,
 
 output-list x%B1.8.1 y%B1.8.1 Z%B1.8.1 OF%B3.1.3;
 

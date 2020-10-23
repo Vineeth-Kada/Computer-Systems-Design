@@ -3,26 +3,26 @@ CHIP FindOverflow {
     OUT OF;
     PARTS:
 
-        // OF = (x[n-1] XOR y[n-1])(p[n-1]+p[n]+.....+p[2n-1])  +  (x[n-1] XNOR y[n-1])(!p[n-1]+!p[n]+.....+!p[2n-1])
+        // OF = (x[n-1] XNOR y[n-1])(p[n-1]+p[n]+.....+p[2n-1])  +  (x[n-1] XOR y[n-1])(!p[n-1]+!p[n]+.....+!p[2n-1])
         Xor(a=xS, b=yS, out=oppSign); //oppSign = 1 if x,y are of opposite signs, else oppSign = 0
         Not(in=oppSign, out=sameSign); //sameSign = 1 if x,y are of same signs, else sameSign = 0
 
         // Finding first term in overflow expression
-        //      oppSign = (x[n-1] XOR y[n-1])
+        //      sameSign = (x[n-1] XNOR y[n-1]
         //      Let A = (p[n-1]+p[n]+.....+p[2n-1])
         //      OF1 = oppSign . A
         Or5Way(a=p[7], b=p[8], c=p[9], d=p[10], e=p[11], out=temp1);
         Or5Way(a=p[12], b=p[13], c=p[14], d=p[15], e=temp1, out=A);
-        And(a=oppSign, b=A, out=OF1);
+        And(a=sameSign, b=A, out=OF1);
 
         // Finding second term in overflow expression
-        //      sameSign = (x[n-1] XNOR y[n-1])
+        //      oppSign = (x[n-1] XOR y[n-1])
         //      Let B = (!p[n-1]+!p[n]+.....+!p[2n-1])
         //      OF2 = sameSign . B
         And5Way(a=p[7], b=p[8], c=p[9], d=p[10], e=p[11], out=temp2);
         And5Way(a=p[12], b=p[13], c=p[14], d=p[15], e=temp2, out=notB); 
         Not(in=notB, out=B);
-        And(a=sameSign, b=B, out=OF2);
+        And(a=oppSign, b=B, out=OF2);
 
         // OF = OF1 + OF2
         Or(a=OF1, b=OF2, out=OF);
