@@ -1,7 +1,7 @@
-// Borrow look ahead based subtractor
+// Ripple Borrow Subtractor
 // Overflow occurs when borrow8 = 1
 
-CHIP UnsignedBLS8{
+CHIP RBS8{
     IN X[8], Y[8];
     OUT out[8],OF;
 
