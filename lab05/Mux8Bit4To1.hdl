@@ -1,4 +1,8 @@
 // 8bit 4 to 1 multiplexer
+// 00 - a
+// 01 - b
+// 02 - c
+// 03 -d
 
 CHIP Mux8Bit4To1{
     IN sel[2],a[8],b[8],c[8],d[8];

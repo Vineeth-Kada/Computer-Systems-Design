@@ -4,7 +4,9 @@ CHIP EQ8Bit {
     IN x[8], y[8];
     OUT EQ;
     PARTS:
-    Xor8Bit(a=x, b=y, out=W);
-    Or8Way(in=W, out=notEQ);
+    // If all the bits are equal then all the bits of xXORy will be zero
+    Xor8Bit(a=x, b=y, out=xXORy);
+    // Takes bitwise or of xXORy
+    Or8Way(in=xXORy, out=notEQ);
     Not(in=notEQ, out=EQ);
 }

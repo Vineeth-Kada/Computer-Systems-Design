@@ -1,0 +1,13 @@
+/* Returns true if at least 2 of the inputs are true*/
+// out = ab + bc + ca
+
+CHIP Atleast2in3 {
+    IN a, b, c;
+    OUT out;
+
+    PARTS:
+    And(a=a, b=b, out=ab);
+    And(a=b, b=c, out=bc);
+    And(a=c, b=a, out=ca);
+    Or3Way(a=ab, b=bc, c=ca, out=out);
+}

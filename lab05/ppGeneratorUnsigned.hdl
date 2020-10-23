@@ -1,39 +1,27 @@
 CHIP ppGeneratorUnsigned{
+// Partial Product Generator for unsigned multiplication
 
-    IN x[8], y[8];
-    OUT pp0[16],pp1[16],pp2[16],pp3[16],pp4[16],pp5[16],pp6[16],pp7[16];
+    IN X[8], Y[8];
+    OUT pp0[16],pp1[16],pp2[16],pp3[16],pp4[16],pp5[16],pp6[16],pp7[16]; // Partial products
 
     PARTS:
+    
 
-    // Adds zeroes infront of x and makes it a 16 bit binary number
-    // for example x = 10101010 then extended x(ex) = 0000000010101010
-    SignBitExtenderUnsigned(in=x,out=ex);
+        // ppi = X.Y[i].2^i;
+        // As we are shifing by i digits to left, ppi[0..i] will be zero
 
-    // Using Mux16 to duplicate a single bit into 16 bit number
-    Mux16(a=false, b=true, sel=y[0], out=ey0);
-    Mux16(a=false, b=true, sel=y[1], out=ey1);
-    Mux16(a=false, b=true, sel=y[2], out=ey2);
-    Mux16(a=false, b=true, sel=y[3], out=ey3);
-    Mux16(a=false, b=true, sel=y[4], out=ey4);
-    Mux16(a=false, b=true, sel=y[5], out=ey5);
-    Mux16(a=false, b=true, sel=y[6], out=ey6);
-    Mux16(a=false, b=true, sel=y[7], out=ey7);
-
-    // Now "sign extended x(ex)" and eyi are both 16 bit numbers
-    // x.y[i] = And16(ex,eyi)
-    // For pp0 no shifting is required so simply take and
-    And16(a=ex, b=ey0, out=pp0);
-    // For any ppi we need to shift by i bits to left => ppi[0..(i-1)]=0
-    // As we are dealing with unsigned numbers 'ex' has first 8 bits zero => out[8..15] = 0
-    // To achieve ppi[0..(i-1)]=0 we can take out[(16-i)..15]=ppi[0..(i-1)]
-    // To achieve shift in ppi we should store the value of x.yi staring from ith bit and bits to the right of ith should be zero
-    And16(a=ex, b=ey1, out[0..14]=pp1[1..15], out[15]=pp1[0]);
-    And16(a=ex, b=ey2, out[0..13]=pp2[2..15], out[14..15]=pp2[0..1]);
-    And16(a=ex, b=ey3, out[0..12]=pp3[3..15], out[13..15]=pp3[0..2]);
-    And16(a=ex, b=ey4, out[0..11]=pp4[4..15], out[12..15]=pp4[0..3]);
-    And16(a=ex, b=ey5, out[0..10]=pp5[5..15], out[11..15]=pp5[0..4]);
-    And16(a=ex, b=ey6, out[0..9]=pp6[6..15], out[10..15]=pp6[0..5]);
-    And16(a=ex, b=ey7, out[0..8]=pp7[7..15], out[9..15]=pp7[0..6]);
+        // We are using 16Bit multiplexers to find partial products
+        // If y[i] = 1 then output will be X, else output will be 0.
+        // Now we need to shift the output to generate partial products
+        // X is an 8 bit number so out[8..15] will be zero, we are using this property to shift partial products
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[0], out=pp0);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[1], out[0..14]=pp1[1..15],out[15]=pp1[0]);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[2], out[0..13]=pp2[2..15], out[14..15]=pp2[0..1]);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[3], out[0..12]=pp3[3..15], out[13..15]=pp3[0..2]);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[4], out[0..11]=pp4[4..15], out[12..15]=pp4[0..3]);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[5], out[0..10]=pp5[5..15], out[11..15]=pp5[0..4]);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[6], out[0..9]=pp6[6..15], out[10..15]=pp6[0..5]);
+        Mux16(a=false, b[0..7]=X, b[8..15]=false, sel=Y[7], out[0..8]=pp7[7..15], out[9..15]=pp7[0..6]);
 
 }
 

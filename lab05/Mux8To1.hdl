@@ -4,27 +4,27 @@ CHIP Mux8To1 {
     IN a, b, c, d, e, f, g, h, sel[3];
     OUT out;
     PARTS:
-    Not(in=sel[0], out=notsel0);
-    Not(in=sel[1], out=notsel1);
-    Not(in=sel[2], out=notsel2);
+        Not(in=sel[0], out=notsel0);
+        Not(in=sel[1], out=notsel1);
+        Not(in=sel[2], out=notsel2);
 
-    And4Way(a=notsel2, b=notsel1, c=notsel0, d=a, out=w1);
+        And4Way(a=notsel2, b=notsel1, c=notsel0, d=a, out=w1);
 
-    And4Way(a=notsel2, b=notsel1, c=sel[0], d=b,  out=w2);
+        And4Way(a=notsel2, b=notsel1, c=sel[0], d=b,  out=w2);
 
-    And4Way(a=notsel2, b=sel[1], c=notsel0, d=c, out=w3);
+        And4Way(a=notsel2, b=sel[1], c=notsel0, d=c, out=w3);
 
-    And4Way(a=notsel2, b=sel[1], c=sel[0], d=d, out=w4);
+        And4Way(a=notsel2, b=sel[1], c=sel[0], d=d, out=w4);
 
-    And4Way(a=sel[2], b=notsel1, c=notsel0, d=e, out=w5);
+        And4Way(a=sel[2], b=notsel1, c=notsel0, d=e, out=w5);
 
-    And4Way(a=sel[2], b=notsel1, c=sel[0], d=f, out=w6);
-     
-    And4Way(a=sel[2], b=sel[1], c=notsel0, d=g, out=w7);
+        And4Way(a=sel[2], b=notsel1, c=sel[0], d=f, out=w6);
+        
+        And4Way(a=sel[2], b=sel[1], c=notsel0, d=g, out=w7);
 
-    And4Way(a=sel[2], b=sel[1], c=sel[0], d=h, out=w8);
+        And4Way(a=sel[2], b=sel[1], c=sel[0], d=h, out=w8);
 
-    Or4Way(a=w1, b=w2, c=w3, d=w4, out=v1);
+        Or4Way(a=w1, b=w2, c=w3, d=w4, out=v1);
 
-    Or5Way(a=v1, b=w5, c=w6, d=w7, e=w8, out=out);
+        Or5Way(a=v1, b=w5, c=w6, d=w7, e=w8, out=out);
 }
