@@ -5,6 +5,6 @@ CHIP And4Way {
     OUT out;
 
     PARTS:
-    And3Way(a=a,b=b,c=c,out=tmp1);
-    And(a=tmp1,b=d,out=out);
+    And3Way(a=a,b=b,c=c,out=abc);
+    And(a=abc,b=d,out=out);
 }

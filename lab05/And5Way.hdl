@@ -3,8 +3,6 @@ CHIP And5Way {
     OUT out;
     PARTS:
     /*Calculates the "and" of five inputs*/
-    And(a=a, b=b, out=w1);
-    And(a=w1, b=c, out=w2);
-    And(a=w2, b=d, out=w3);
-    And(a=w3, b=e, out=out);
+    And4Way(a=a,b=b,c=c,d=d,out=abcd);
+    And(a=abcd,b=e,out=out);
 }
