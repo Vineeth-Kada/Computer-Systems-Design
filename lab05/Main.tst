@@ -13,16 +13,16 @@ eval, output;
 
 /* ============================== 2
  *  Operation AND: opCode [001]
- *  X= 71, Y= 9
+ *  X= 71, Y= 11
  *===============================*/
-set X %B01000111, set Y %B00001001, set opCode %B001, set sPin 0,
+set X %B01000111, set Y %B00001011, set opCode %B001, set sPin 0,
 eval, output;
 
 /* ============================== 3
  *  Operation OR: opCode [010]
- *  X= 10, Y= 5
+ *  X= 10, Y= 4
  *===============================*/
-set X %B00001010, set Y %B00000101, set opCode %B010, set sPin 0,
+set X %B00001010, set Y %B00000100, set opCode %B010, set sPin 0,
 eval, output;
 
 /* ============================== 4
@@ -62,9 +62,9 @@ eval, output;
 
 /* ======================================== 9
  *  Operation ADD: opCode [100], signed
- *  X= -128, Y= -128 - negative overflow
+ *  X= -126, Y= -126 - negative overflow
  *=========================================*/
-set X %B10000000, set Y %B10000000, set opCode %B100, set sPin 1,
+set X %B10000010, set Y %B10000010, set opCode %B100, set sPin 1,
 eval, output;
 
 /* ======================================== 10
