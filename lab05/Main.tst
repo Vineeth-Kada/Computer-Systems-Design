@@ -6,16 +6,16 @@ output-list X%B1.8.1 Y%B1.8.1 opCode%B3.3.3 sPin%B3.1.3 Z%B1.8.1 EQ%B3.1.3 OF%B3
 
 /* ============================== 1
  *  Operation NOP: opCode [000]
- *  X= 10, Y= 10
+ *  X= 119, Y= 119
  *===============================*/
-set X %B00001010, set Y %B00001010, set opCode %B000, set sPin 0,
+set X %B01110111, set Y %B01110111, set opCode %B000, set sPin 0,
 eval, output;
 
 /* ============================== 2
  *  Operation AND: opCode [001]
- *  X= 71, Y= 8
+ *  X= 71, Y= 9
  *===============================*/
-set X %B01000111, set Y %B00001000, set opCode %B001, set sPin 0,
+set X %B01000111, set Y %B00001001, set opCode %B001, set sPin 0,
 eval, output;
 
 /* ============================== 3
@@ -27,9 +27,9 @@ eval, output;
 
 /* ============================== 4
  *  Operation XOR: opCode [011]
- *  X= 10, Y= 5
+ *  X= 74, Y= 18
  *===============================*/
-set X %B00001010, set Y %B00000101, set opCode %B011, set sPin 0,
+set X %B01001010, set Y %B00010010, set opCode %B011, set sPin 0,
 eval, output;
 
 /* ======================================== 5
