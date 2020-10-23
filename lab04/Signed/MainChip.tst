@@ -1,8 +1,8 @@
 load MainChip.hdl,
 output-file MainChip.out,
-compare-to MainChip.cmp,
+//compare-to MainChip.cmp,
 
-output-list x%B1.8.1 y%B1.8.1 M%B1.8.1 OF%B3.1.3;
+output-list x%B1.8.1 y%B1.8.1 Z%B1.8.1 OF%B3.1.3;
 
 // A pair of operands not resulting in overflow, both operands are positive
 // x = 12, y = 8, M = 96, OF = 0

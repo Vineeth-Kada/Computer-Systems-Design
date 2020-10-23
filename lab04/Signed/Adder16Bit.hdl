@@ -1,0 +1,15 @@
+CHIP Adder16Bit {
+    // CLA based adder with HL Terms
+    IN X[16], Y[16];
+    OUT S[16], OF;
+    PARTS:
+
+        Xor16Bit(a=X, b=Y, out=p);  //Propogate terms - p(16) are being calculated
+        And16(a=X, b=Y, out=g); //Generate terms - g(16) are being calculated
+
+        HigherLevelTerms(p=p, g=g, P=P, G=G);   //Higher level propogate and generate terms are being calculated
+
+        // c16 is the OF Bit
+        CalculateCarries(c0=false, p=p, g=g, P=P, G=G, c=c, c16=OF);    //carries are being calculated
+        Xor16Bit(a=p, b=c, out=S);  //SUM is being calculated
+}

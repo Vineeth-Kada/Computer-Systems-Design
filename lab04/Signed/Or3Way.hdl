@@ -1,10 +1,10 @@
 /* Or gate with a fan-in of 3 */
 
-CHIP Or3 {
+CHIP Or3Way {
     IN a,b,c;
     OUT out;
 
     PARTS:
-    Or(a=a, b=b, out=tmp1);
-    Or(a=tmp1, b=c, out=out);
+    Or(a=a, b=b, out=aORb);
+    Or(a=aORb, b=c, out=out);
 }

@@ -1,6 +1,6 @@
 CHIP MainChip {
     IN x[8],y[8];
-    OUT M[8], OF;
+    OUT Z[8], OF;
 
     PARTS:
     ppGeneratorSigned(x=x, y=y, pp0=pp0, pp1=pp1, pp2=pp2, pp3=pp3, pp4=pp4, pp5=pp5, pp6=pp6, pp7=pp7, pp8=pp8);
@@ -21,9 +21,9 @@ CHIP MainChip {
     SummandReducer3to2(S1=c31, S2=s31, S3=s22, C=c41, S=s41);
 
     // CLA with HL Terms
-    HLTermsSigned16BitAdderSubtractor(X=c41,Y=s41,cPin=false,S=p,OF=OF1);
+    Adder16Bit(X=c41,Y=s41,S=p,S[0..7]=Z); // S(16) = c41 + s41, Z is an 8Bit number so consider only S[0..7]
 
-    //calculating overflow and sum
-    FindOverflow(x=x[7], y=y[7], p=p, OF=OF);
-    And16(a=p, b=true, out[0..7]=M);
+    //calculating overflow
+    // xS, yS are sign bits of x and y respectively
+    FindOverflow(xS=x[7], yS=y[7], p=p, OF=OF);
 }
