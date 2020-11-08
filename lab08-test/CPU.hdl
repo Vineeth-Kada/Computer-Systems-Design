@@ -1,0 +1,32 @@
+CHIP CPU {
+    IN inM[16], instruction[16], reset;
+    OUT outM[16], writeM, addressM[16], instructionAddress[16];
+
+    PARTS:
+
+    /* Generating input and control bit for A register [and addressM] */
+    Not(in=instruction[15], out=isAinstruction);
+    Mux16(a=ALUout, b=instruction, sel=isAinstruction, out=inAregister);
+
+    And(a=instruction[15], b=instruction[5], out=isDestinationA);
+    Or(a=isDestinationA, b=isAinstruction, out=loadA);
+
+    ARegister(in=inAregister, load=loadA, out=outAregister, out=addressM);
+    
+    /* Generating input and control bit for D register */
+    And(a=instruction[15], b=instruction[4], out=isDestinationD);
+    DRegister(in=ALUout, load=isDestinationD, out=outDregister);
+
+    /* Getting y-operand for ALU from memory or A-register as specified */
+    And(a=instruction[15], b=instruction[12], out=getFromMemory);
+    Mux16(a=outAregister, b=inM, sel=getFromMemory, out=yOperand);
+
+    /* Provide operands to ALU and obtaining outM */
+    ALU(x=outDregister, y=yOperand, zx=instruction[11], nx=instruction[10],zy=instruction[9], ny=instruction[8], f=instruction[7], n0=instruction[6], out=ALUout, out=outM, zr=zr, ng=ng);
+
+    /* Having PC update itself as necessary (i.e, increment or jump) */
+    PC(Aout=outAregister, I=instruction, reset=reset, zr=zr, ng=ng, out=instructionAddress);
+
+    /* Getting writeM */
+    And(a=instruction[15], b=instruction[3], out=writeM);
+}

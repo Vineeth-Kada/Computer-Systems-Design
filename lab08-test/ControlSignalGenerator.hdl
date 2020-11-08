@@ -1,0 +1,29 @@
+CHIP ControlSignalGenerator {
+    IN I[16], zr, ng;
+    OUT jump;
+
+    PARTS:
+
+    /* Generating jump bit: indicates whether we load A-register into PC */
+    Not(in=I[2], out=notI2);
+    Not(in=I[1], out=notI1);
+    Not(in=I[0], out=notI0);
+    Not(in=zr, out=notzr);
+    Not(in=ng, out=notng);
+    Or(a=ng, b=zr, out=leZero);
+
+    And5(a=notI2, b=notI1, c=I[0], d=notzr, e=notng, out=JGT);
+    And4(a=notI2, b=I[1], c=notI0, d=zr, out=JEQ);
+    And4(a=notI2, b=I[1], c=I[0], d=notng, out=JGE);
+    And5(a=I[2], b=notI1, c=notI0, d=notzr, e=ng, out=JLT);
+    And4(a=I[2], b=notI1, c=I[0], d=notzr, out=JNE);
+    And4(a=I[2], b=I[1], c=notI0, d=leZero, out=JLE);
+    And3(a=I[2], b=I[1], c=I[0], out=JMP);
+
+    Or4(a=JGT, b=JEQ, c=JGE, d=JLT, out=t1);
+    Or3(a=JNE, b=JLE, c=JMP, out=t2);
+    Or(a=t1, b=t2, out=jumpInit);
+    And(a=jumpInit, b=I[15], out=jump);
+
+
+}
