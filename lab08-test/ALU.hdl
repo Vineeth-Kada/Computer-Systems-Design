@@ -30,9 +30,9 @@ CHIP ALU {
         Mux16(a=x, b=false, sel=zx, out=xMUX0);
         Mux16(a=y, b=false, sel=zy, out=yMUX0);
         // Taking BitWise-XOR of xMUX0 with nx to get p
-        bitWiseXor(a=xMUX0, b=nx, out=p);
+        bitwiseXor16(a=xMUX0, b=nx, out=p);
         // Taking BitWise-XOR of yMUX0 with ny to get q
-        bitWiseXor(a=yMUX0, b=ny, out=q);
+        bitwiseXor16(a=yMUX0, b=ny, out=q);
 
 
         /*
@@ -63,7 +63,7 @@ CHIP ALU {
         Add16(a=p,b=q,s=pADDq); // p + q
         And16(a=p, b=q, out=pANDq); // p & q
         Mux16(a=pANDq, b=pADDq, sel=f, out=r); // (p + q)MUX(p & q)
-        bitWiseXor(a=r,b=n0,out[15]=signBit,out=out, out=outCopy); // out and outCopy are same
+        bitwiseXor16(a=r,b=n0,out[15]=signBit,out=out, out=outCopy); // out and outCopy are same
 
         // ng = 1 if out < 0
         //    = 0 if out >= 0
@@ -72,5 +72,5 @@ CHIP ALU {
 
         // zr = 1 if out = 0
         //    = 0 if out != 0
-        zrCompute(out=outCopy, zr=zr);
+        isZero(out=outCopy, zr=zr);
 }
