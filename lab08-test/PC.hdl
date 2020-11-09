@@ -40,7 +40,6 @@ CHIP PC {
 
     // Computing jump bit
     // jump = I[15].(JGT + JEQ + JGE + JLT + JNE + JLE + JMP)
-
     Or4(a=JGT, b=JEQ, c=JGE, d=JLT, out =t1);
     Or4(a=JNE, b=JLE, c=JMP, d=t1, out =t2);
     And(a=t2, b = I[15], out=jump);
