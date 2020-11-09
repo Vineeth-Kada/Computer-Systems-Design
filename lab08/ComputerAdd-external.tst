@@ -19,13 +19,12 @@ set RAM16K[18] %B0000000000000011,
 set RAM16K[19] %B1110000010010000,
 set RAM16K[20] %B0000000000000000,
 set RAM16K[21] %B1110001100001000,
-tick, tock, output;
 
 
 // First run (at the beginning PC=0)
-repeat 6{
-    set reset 0,
+repeat 7{
     tick, tock, output;
+    set reset 0,
 }
 
 /*
