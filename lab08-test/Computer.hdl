@@ -1,8 +1,0 @@
-CHIP Computer {
-    IN reset;
-
-    PARTS:
-    RAM64(address=instructionAddress, out=instruction);
-    CPU(inM=inM, instruction=instruction, reset=reset, outM=outM, writeM=writeM, addressM[0..13]=addressM, pc[0..14]=instructionAddress);
-    RAM16K(in=outM, load=writeM, address=addressM, out=inM);
-}
