@@ -1,32 +1,38 @@
 CHIP CPU {
     IN inM[16], instruction[16], reset;
-    OUT outM[16], writeM, addressM[16], pc[15];
+    OUT outM[16], writeM, addressM[6], pc[15];
 
     PARTS:
 
-    /* Generating input and control bit for A register [and addressM] */
-    Not(in=instruction[15], out=isAinstruction);
-    Mux16(a=ALUout, b=instruction, sel=isAinstruction, out=inAregister);
+        // Generating input for A register
+        Xor(a=instruction[15], b=false, out=isCinstruction);
+        Not(in=instruction[15], out=isAinstruction);
+        Mux16(a=ALUout, b=instruction, sel=isAinstruction, out=inAregister);
 
-    And(a=instruction[15], b=instruction[5], out=isDestinationA);
-    Or(a=isDestinationA, b=isAinstruction, out=loadA);
+        // Generating control signal for A Register
+        // isDestionationA - Whether ALU ouput goes to A. So it should be a CTypeInstruction and d1(Instruction[5]) should be 1
+        And(a=isCinstruction, b=instruction[5], out=isDestinationA);
+        // loadA = 1 if ALU output goes to A or instruction is A type
+        Or(a=isDestinationA, b=isAinstruction, out=loadA);
 
-    ARegister(in=inAregister, load=loadA, out=outAregister, out=addressM);
+        ARegister(in=inAregister, load=loadA, out=outAregister, out[0..5]=addressM);
     
-    /* Generating input and control bit for D register */
-    And(a=instruction[15], b=instruction[4], out=isDestinationD);
-    DRegister(in=ALUout, load=isDestinationD, out=outDregister);
+        // Generating input and control bit for D register
+        // loadD = 1, if the instruction is C Type and d2 (instrution[4]) should be 1
+        And(a=isCinstruction, b=instruction[4], out=loadD);
+        DRegister(in=ALUout, load=loadD, out=outDregister);
 
-    /* Getting y-operand for ALU from memory or A-register as specified */
-    And(a=instruction[15], b=instruction[12], out=getFromMemory);
-    Mux16(a=outAregister, b=inM, sel=getFromMemory, out=yOperand);
+        // Getting y-operand for ALU from memory or A-register as specified
+        // We should get from memory (inM) if it is a cType instruction and a-bit(instruction[12]) is 1
+        And(a=isCinstruction, b=instruction[12], out=getFromMemory);
+        Mux16(a=outAregister, b=inM, sel=getFromMemory, out=yOperand);
 
-    /* Provide operands to ALU and obtaining outM */
-    ALU(x=outDregister, y=yOperand, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], n0=instruction[6], out=ALUout, out=outM, zr=zr, ng=ng);
+        // Provide operands to ALU and obtaining outM
+        ALU(x=outDregister, y=yOperand, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], n0=instruction[6], out=ALUout, out=outM, zr=zr, ng=ng);
 
-    /* Having PC update itself as necessary (i.e, increment or jump) */
-    PC(Aout=outAregister, I=instruction, reset=reset, zr=zr, ng=ng, pcOut=pc);
+        // Having PC update itself as necessary (i.e, increment or jump)
+        PC(Aout=outAregister, I=instruction, reset=reset, zr=zr, ng=ng, pcOut=pc);
 
-    /* Getting writeM */
-    And(a=instruction[15], b=instruction[3], out=writeM);
+        // Getting writeM
+        And(a=isCinstruction, b=instruction[3], out=writeM);
 }
