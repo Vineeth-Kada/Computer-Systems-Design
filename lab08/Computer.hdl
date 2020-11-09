@@ -3,7 +3,7 @@ CHIP Computer{
     IN reset;
     
     PARTS:
-        RAM16K(load=false, address=pc, out=instruction);
+        RAM64(load=false, address=pc, out=instruction);
         CPU(inM = memOut, instruction = instruction, reset = reset, outM= outM, writeM = writeM, addressM = addressM,pc=pc);
         RAM16K(in=outM, load=writeM, address=addressM, out=memOut);
 }

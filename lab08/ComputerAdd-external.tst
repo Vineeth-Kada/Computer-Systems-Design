@@ -18,6 +18,7 @@ set RAM16K[18] 0000000000000011,
 set RAM16K[19] 1110000010010000,
 set RAM16K[20] 0000000000000000,
 set RAM16K[21] 1110001100001000,
+tick, tock, output;
 
 // First run (at the beginning PC=0)
 repeat 6 {
