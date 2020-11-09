@@ -1,6 +1,6 @@
 CHIP CPU {
     IN inM[16], instruction[16], reset;
-    OUT outM[16], writeM, addressM[16], instructionAddress[16];
+    OUT outM[16], writeM, addressM[16], pc[16];
 
     PARTS:
 
@@ -25,7 +25,7 @@ CHIP CPU {
     ALU(x=outDregister, y=yOperand, zx=instruction[11], nx=instruction[10],zy=instruction[9], ny=instruction[8], f=instruction[7], n0=instruction[6], out=ALUout, out=outM, zr=zr, ng=ng);
 
     /* Having PC update itself as necessary (i.e, increment or jump) */
-    PC(Aout=outAregister, I=instruction, reset=reset, zr=zr, ng=ng, out=instructionAddress);
+    PC(Aout=outAregister, I=instruction, reset=reset, zr=zr, ng=ng, out=pc);
 
     /* Getting writeM */
     And(a=instruction[15], b=instruction[3], out=writeM);
