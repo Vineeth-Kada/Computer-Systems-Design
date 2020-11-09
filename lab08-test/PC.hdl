@@ -17,15 +17,6 @@ CHIP PC {
     Or(a=ng, b=zr, out=LE); // Less than or equal to zero
 
 
-    // These are the jump conditions
-    // JGT(0 0 1)   -   not(I2).not(I1).I0.not(ng).not(zr)
-    // JEQ(0 1 0)   -   not(I2).I1.not(I0).zr
-    // JGE(0 1 1)   -   not(I2).I1.I0.not(ng)
-    // JLT(1 0 0)   -   I2.not(I1).not(I0).ng.not(zr)
-    // JNE(1 0 1)   -   I2.not(I1).I0.not(zr)
-    // JLE(1 1 0)   -   I2.I1.not(I0).LE
-    // JMP(1 1 1)   -   I2.I1.I0
-
     // JGT(0 0 1)   -   not(I2).not(I1).I0.not(ng).not(zr)
     And5(a=notI2, b=notI1, c=I[0], d=notzr, e=notng, out=JGT);
 
@@ -43,7 +34,7 @@ CHIP PC {
 
     // JLE(1 1 0)   -   I2.I1.not(I0).LE
     And4(a=I[2], b=I[1], c=notI0, d=LE, out=JLE);
-    
+
     // JMP(1 1 1)   -   I2.I1.I0
     And3(a=I[2], b=I[1], c=I[0], out=JMP);
 
