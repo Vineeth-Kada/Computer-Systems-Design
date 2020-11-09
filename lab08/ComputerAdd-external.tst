@@ -6,22 +6,25 @@
 load Computer.hdl,
 output-file ComputerAdd-external.out,
 //compare-to ComputerAdd-external.cmp,
-output-list time%S1.4.1 reset%B2.1.2 RAM16K[0]%B1.16.1 RAM16K[1]%B1.16.1 RAM16K[2]%B1.16.1;
+output-list time%S1.4.1 reset%B2.1.2 RAM64[0]%D1.16.1 RAM64[1]%D1.16.1 RAM64[2]%D1.16.1;
 
 // Load a program written in the Hack machine language.
 // The program adds the two constants 2 and 3 and writes the result in RAM[0].
 
+
 set reset 1,
-set RAM16K[16] 0000000000000010,
-set RAM16K[17] 1110110000010000,
-set RAM16K[18] 0000000000000011,
-set RAM16K[19] 1110000010010000,
-set RAM16K[20] 0000000000000000,
-set RAM16K[21] 1110001100001000,
+set RAM16K[16] %B0000000000000010,
+set RAM16K[17] %B1110110000010000,
+set RAM16K[18] %B0000000000000011,
+set RAM16K[19] %B1110000010010000,
+set RAM16K[20] %B0000000000000000,
+set RAM16K[21] %B1110001100001000,
 tick, tock, output;
 
+
 // First run (at the beginning PC=0)
-repeat 6 {
+repeat 6{
+    set reset 0,
     tick, tock, output;
 }
 
