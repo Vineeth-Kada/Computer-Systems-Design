@@ -1,6 +1,11 @@
 CHIP PC {
+
+    // Aout - Contents of Register A
+    // I - Current Instruction 16Bit
     IN Aout[16], I[16], reset, zr, ng;
-    OUT out[16];
+
+    // pcOut - Address of next instruction
+    OUT pcOut[15];
 
     PARTS:
     /* Generating jump bit: indicates whether we load A-register into PC */
@@ -9,23 +14,48 @@ CHIP PC {
     Not(in=I[0], out=notI0);
     Not(in=zr, out=notzr);
     Not(in=ng, out=notng);
-    Or(a=ng, b=zr, out=leZero);
+    Or(a=ng, b=zr, out=LE); // Less than or equal to zero
 
+
+    // These are the jump conditions
+    // JGT(0 0 1)   -   not(I2).not(I1).I0.not(ng).not(zr)
+    // JEQ(0 1 0)   -   not(I2).I1.not(I0).zr
+    // JGE(0 1 1)   -   not(I2).I1.I0.not(ng)
+    // JLT(1 0 0)   -   I2.not(I1).not(I0).ng.not(zr)
+    // JNE(1 0 1)   -   I2.not(I1).I0.not(zr)
+    // JLE(1 1 0)   -   I2.I1.not(I0).LE
+    // JMP(1 1 1)   -   I2.I1.I0
+
+    // JGT(0 0 1)   -   not(I2).not(I1).I0.not(ng).not(zr)
     And5(a=notI2, b=notI1, c=I[0], d=notzr, e=notng, out=JGT);
+
+    // JEQ(0 1 0)   -   not(I2).I1.not(I0).zr
     And4(a=notI2, b=I[1], c=notI0, d=zr, out=JEQ);
+
+    // JGE(0 1 1)   -   not(I2).I1.I0.not(ng)
     And4(a=notI2, b=I[1], c=I[0], d=notng, out=JGE);
+
+    // JLT(1 0 0)   -   I2.not(I1).not(I0).ng.not(zr)
     And5(a=I[2], b=notI1, c=notI0, d=notzr, e=ng, out=JLT);
+
+    // JNE(1 0 1)   -   I2.not(I1).I0.not(zr)
     And4(a=I[2], b=notI1, c=I[0], d=notzr, out=JNE);
-    And4(a=I[2], b=I[1], c=notI0, d=leZero, out=JLE);
+
+    // JLE(1 1 0)   -   I2.I1.not(I0).LE
+    And4(a=I[2], b=I[1], c=notI0, d=LE, out=JLE);
+    
+    // JMP(1 1 1)   -   I2.I1.I0
     And3(a=I[2], b=I[1], c=I[0], out=JMP);
 
-    Or4(a=JGT, b=JEQ, c=JGE, d=JLT, out=t1);
-    Or3(a=JNE, b=JLE, c=JMP, out=t2);
-    Or(a=t1, b=t2, out=jumpInit);
-    And(a=jumpInit, b=I[15], out=jump);
+    // Computing jump bit
+    // jump = I[15].(JGT + JEQ + JGE + JLT + JNE + JLE + JMP)
+
+    Or4(a=JGT, b=JEQ, c=JGE, d=JLT, out =t1);
+    Or4(a=JNE, b=JLE, c=JMP, d=t1, out =t2);
+    And(a=t2, b = I[15], out=jump);
 
     /* After jump bit is available */
-    Add16(a=lastState, b[1..15]=false, b[0]=true, s=incLast);
-    Mux4Way16(a=incLast, b=Aout, c=false, d=false, sel[1]=reset, sel[0]=jump, out=newState);
-    Register(in=newState, load=true, out=lastState, out=out);
+    Mux4Way16(a=AdderOut, b=Aout, c=false, d=false, sel[1]=reset, sel[0]=jump, out=pcIn);
+    Register(in=pcIn, load=true, out=pcOutCopy, out[0..14]=pcOut);
+    Add16(a=pcOutCopy, b[1..15]=false, b[0]=true, s=AdderOut);
 }

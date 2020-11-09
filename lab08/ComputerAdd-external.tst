@@ -6,7 +6,7 @@
 load Computer.hdl,
 output-file ComputerAdd-external.out,
 //compare-to ComputerAdd-external.cmp,
-output-list time%S1.4.1 reset%B2.1.2 RAM64[0]%D1.16.1 RAM64[1]%D1.16.1 RAM64[2]%D1.16.1;
+output-list time%S1.4.1 reset%B2.1.2 RAM16K[0]%D1.16.1 RAM16K[1]%D1.16.1 RAM16K[2]%D1.16.1;
 
 // Load a program written in the Hack machine language.
 // The program adds the two constants 2 and 3 and writes the result in RAM[0].
