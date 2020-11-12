@@ -60,7 +60,7 @@ CHIP ALU {
                                               │                             
                                              out                            
         */
-        Add16(a=p,b=q,s=pADDq); // p + q
+        Adder16(a=p,b=q,s=pADDq); // p + q
         And16(a=p, b=q, out=pANDq); // p & q
         Mux16(a=pANDq, b=pADDq, sel=f, out=r); // (p + q)MUX(p & q)
         bitwiseXor16(a=r,b=n0,out[15]=signBit,out=out, out=outCopy); // out and outCopy are same
