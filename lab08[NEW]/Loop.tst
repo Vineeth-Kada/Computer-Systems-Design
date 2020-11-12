@@ -1,5 +1,5 @@
 load Computer.hdl,
-//compare-to Loop.cmp
+compare-to Loop.cmp,
 output-file Loop.out,
 
 output-list time%S1.7.1 reset%D1.8.1  RAM64[16]%D1.8.1 RAM64[17]%D1.8.1;
