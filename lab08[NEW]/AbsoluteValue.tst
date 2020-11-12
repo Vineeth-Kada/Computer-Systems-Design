@@ -1,6 +1,6 @@
 load Computer.hdl,
-output-file Comparison.out,
-compare-to Comparison.cmp,
+output-file AbsoluteValue.out,
+compare-to AbsoluteValue.cmp,
 output-list time%S1.4.1 reset%B2.1.2 RAM64[16]%D1.7.1 RAM64[17]%D1.7.1 RAM64[18]%D1.7.1;
 
 // Load a program written in the Hack machine language.
