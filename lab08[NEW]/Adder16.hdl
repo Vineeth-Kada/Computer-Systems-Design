@@ -1,7 +1,7 @@
 /* This is a 16bit adder based on 4-bit CLA with HL terms *
 /* This chip supports only addition, and doesn't check for overflow */
 
-CHIP Add16 {
+CHIP Adder16 {
     IN a[16], b[16];
     OUT s[16];
 
