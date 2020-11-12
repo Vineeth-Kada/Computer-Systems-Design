@@ -38,8 +38,9 @@ repeat 102{
 }
 
 set reset 1,
-tick, tock;
+tick, tock, output;
 
+set reset 0,
 // int i=1
 tick, tock;
 tick, tock;
@@ -48,7 +49,7 @@ tick, tock;
 tick, tock;
 tick, tock,output;
 
-set reset 0,
+
 repeat 101{
     tick, tock;
     tick, tock;
