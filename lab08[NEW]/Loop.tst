@@ -37,6 +37,7 @@ repeat 102{
     tick, tock, output;
 }
 
+// Testing reset operation
 set reset 1,
 tick, tock, output;
 
