@@ -1,7 +1,7 @@
 load Computer.hdl,
 output-file AbsoluteValue.out,
 compare-to AbsoluteValue.cmp,
-output-list time%S1.4.1 reset%B2.1.2 RAM64[16]%D1.7.1 RAM64[17]%D1.7.1 RAM64[18]%D1.7.1;
+output-list time%S1.4.1 reset%B2.1.2 ARegister[0]%D1.7.1 DRegister[0]%D1.7.1 RAM64[16]%D1.7.1 RAM64[17]%D1.7.1 RAM64[18]%D1.7.1;
 
 // Load a program written in the Hack machine language.
 // The program adds finds the absolute value of a-b 
