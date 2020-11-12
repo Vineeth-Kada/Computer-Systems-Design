@@ -1,0 +1,12 @@
+        @a
+        D=M
+        @b
+        D=D-M
+        @ENDIF
+        D;JGT
+        D=M
+        @a
+        D=D-M
+(ENDIF)
+        @c
+        M=D
