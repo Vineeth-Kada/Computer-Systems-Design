@@ -38,7 +38,16 @@ repeat 102{
 }
 
 set reset 1,
-tick, tock, output;
+tick, tock;
+
+// int i=1
+tick, tock;
+tick, tock;
+
+// int sum=0
+tick, tock;
+tick, tock,output;
+
 set reset 0,
 repeat 101{
     tick, tock;
