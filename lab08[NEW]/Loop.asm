@@ -1,3 +1,4 @@
+@N
 @i
 M=1
 @sum
@@ -5,8 +6,8 @@ M=0
 (LOOP)
 @i
 D=M
-@100
-D=D-A
+@N
+D=D-M
 @END
 D;JGT
 @i
