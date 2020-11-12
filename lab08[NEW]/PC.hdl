@@ -47,5 +47,5 @@ CHIP PC {
     /* After jump bit is available */
     Mux4Way16(a=AdderOut, b=Aout, c=false, d=false, sel[1]=reset, sel[0]=jump, out=pcIn);
     Register(in=pcIn, load=true, out=pcOutCopy, out[0..14]=pcOut);
-    Add16(a=pcOutCopy, b[1..15]=false, b[0]=true, s=AdderOut);
+    Adder16(a=pcOutCopy, b[1..15]=false, b[0]=true, s=AdderOut);
 }

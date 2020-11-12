@@ -1,4 +1,4 @@
-/* This is a 4-bit CLA based adder with higher order terms *
+/* This is a 16bit adder based on 4-bit CLA with HL terms *
 /* This chip supports only addition, and doesn't check for overflow */
 
 CHIP Add16 {
