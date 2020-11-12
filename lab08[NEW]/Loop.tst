@@ -1,8 +1,8 @@
 load Computer.hdl,
 //compare-to Loop.cmp
-output-file Loot.out,
+output-file Loop.out,
 
-output-list time%S1.4.1 RAM64[16]%D1.8.1 RAM64[17]%D1.8.1;
+output-list time%S1.7.1 reset%D1.8.1  RAM64[16]%D1.8.1 RAM64[17]%D1.8.1;
 
 ROM32K load Loop.hack,
 set reset 0,
@@ -19,7 +19,7 @@ tick, tock,output;
  *      sum = sum+i;
  *      i++;
  *
- * After 100 iterations i should be 101 and sum should be 5050 and should change
+ * After 100 iterations i should be 101 and sum should be 5050 and should change */
 repeat 102{
     tick, tock;
     tick, tock;
@@ -36,3 +36,24 @@ repeat 102{
     tick, tock;
     tick, tock, output;
 }
+
+set reset 1,
+tick, tock, output;
+set reset 0,
+repeat 101{
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+    tick, tock;
+}
+output;
