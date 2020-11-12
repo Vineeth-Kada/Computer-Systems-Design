@@ -50,7 +50,6 @@ tick, tock;
 tick, tock;
 tick, tock,output;
 
-
 repeat 102{
     tick, tock;
     tick, tock;
