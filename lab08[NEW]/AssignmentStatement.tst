@@ -8,7 +8,7 @@ output-list time%S1.4.1 reset%B2.1.2 ARegister[0]%D1.7.1 DRegister[0]%D1.7.1 pc%
 set RAM64[16] 14, set RAM64[17] 35, set RAM64[18] 41,
 
 // Load a program written in the Hack machine language.
-ROM32K load Add.hack,
+ROM32K load AssignmentStatement.hack,
 output;
  
 // First run (at the beginning PC=0), also value stored in RAM64[19] at the end must be 8 
