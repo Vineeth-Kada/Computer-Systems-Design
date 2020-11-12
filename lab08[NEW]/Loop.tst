@@ -66,4 +66,3 @@ repeat 102{
     tick, tock;
     tick, tock,output;
 }
-output;
