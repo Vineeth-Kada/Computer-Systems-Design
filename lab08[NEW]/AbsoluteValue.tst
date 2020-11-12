@@ -5,7 +5,7 @@ output-list time%S1.4.1 reset%B2.1.2 RAM64[16]%D1.7.1 RAM64[17]%D1.7.1 RAM64[18]
 
 // Load a program written in the Hack machine language.
 // The program adds finds the absolute value of a-b 
-ROM32K load Comparison.hack,
+ROM32K load AbsoluteValue.hack,
 set RAM64[16] %B0000010101101101, //1389
 set RAM64[17] %B0000010101111000, //1400
 set RAM64[18] %B0000000000000000,
