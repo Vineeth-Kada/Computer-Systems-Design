@@ -36,33 +36,3 @@ repeat 102{
     tick, tock;
     tick, tock, output;
 }
-
-// Testing reset operation
-set reset 1,
-tick, tock, output;
-
-set reset 0,
-// int i=1
-tick, tock;
-tick, tock;
-
-// int sum=0
-tick, tock;
-tick, tock,output;
-
-repeat 102{
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock;
-    tick, tock,output;
-}
