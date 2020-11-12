@@ -1,6 +1,6 @@
 load Computer.hdl,
-output-file ComputerAdd.out,
-compare-to ComputerAdd.cmp,
+output-file AssignmentStatement.out,
+compare-to AssignmentStatement.cmp,
 output-list time%S1.4.1 reset%B2.1.2 ARegister[0]%D1.7.1 DRegister[0]%D1.7.1 pc%D0.4.0 RAM64[19]%D1.7.1 RAM64[16]%D1.7.1 RAM64[17]%D1.7.1 RAM64[18]%D1.7.1;
 
 //This program computes a + b - c and where a, b and c are variables. a is stored in RAM64[16], b is stored in RAM64[17] and c is stored in RAM64[18].
