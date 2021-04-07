@@ -1,5 +1,6 @@
-# CS2310 Master Repository
+# Foundations of Computer Systems Design
 
-### Don't upload code directly here, create a branch and then upload in it :)
+Code Written for Foundations of Computer Systems Design Assignments under Prof. Chandra Sekhar IITM.
+In Lab 8 we implement a CPU! Previous Labs have parts developed for it...
 
-Lab 8 Implements a functioning CPU, Previous Labs develop components of it
+Please don't use if same assignment comes up again!
