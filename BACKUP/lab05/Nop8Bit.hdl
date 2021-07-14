@@ -1,8 +1,0 @@
-// returns a bus with 8 zeroes
-
-CHIP Nop8Bit {
-    IN a[8], b[8];
-    OUT out[8];
-    PARTS:
-    Xor8Bit(a=false, b=false, out=out);
-}
