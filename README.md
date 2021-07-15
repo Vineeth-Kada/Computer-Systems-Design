@@ -45,6 +45,26 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
                      └────────┬───────┘           └────────┬───────┘
                               │                            │   
                               p                            q
+                              
+     
+
+              x       0                    y       0      
+              ┼16     ┼16                  ┼16     ┼16
+          ┌───┴───────┴────┐           ┌───┴───────┴────┐
+    zx ___│  16-bit 2To1   │     zy ___│   16-bit 2To1  │
+          │       MUX      │           │       MUX      │
+          └────────┬───────┘           └────────┬───────┘
+                   │                            │   
+                 xMUX0                        yMUX0      
+                   │       nx                   │      ny   
+                   │       │                    │       │  
+               ┌───┴───────┴────┐           ┌───┴───────┴────┐
+               │      16-bit    │           │      16-bit    │
+               │  BITWISE XOR   │           │  BITWISE XOR   │
+               └────────┬───────┘           └────────┬───────┘
+                        │                            │   
+                        p                            q
+
         
         
 * Lab8: Hack CPU
