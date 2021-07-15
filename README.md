@@ -16,13 +16,16 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
 * Lab6: Floating point multiplier
 * Lab7: [Hack ALU](https://github.com/Vineeth-Kada/CS2310/blob/main/lab07/HackALU.hdl)
 
-    // Hack ALU can perform 18 different operations on x,y based on these inputs
+    Hack ALU can perform 18 different operations on x,y based on these inputs
+    
     IN x[16], y[16], zx, nx, zy, ny, f, n0;
+    
+    
     OUT out[16], zr, ng;
 
     PARTS:
 
-        /*
+        
             xMUX0 = x if zx = 0         yMUX0 = y if zy = 0
                     0 if zx = 1                 0 if zy = 1
 
@@ -42,6 +45,6 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
                      └────────┬───────┘           └────────┬───────┘
                               │                            │   
                               p                            q
-        */
+        
         
 * Lab8: Hack CPU
