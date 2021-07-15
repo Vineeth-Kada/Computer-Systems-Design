@@ -76,3 +76,8 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
         
         
 * Lab8: Hack CPU
+* The Hack CPU is essentially a state change machine-
+*     First obtain instruction pointed to by PC and update PC
+*     Decode the instruction
+*     Perform the relevant operation
+*     Repeat
