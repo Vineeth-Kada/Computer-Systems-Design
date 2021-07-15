@@ -17,13 +17,14 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
 * Lab7: [Hack ALU](https://github.com/Vineeth-Kada/CS2310/blob/main/lab07/HackALU.hdl)
 
     ```
-    // Hack ALU can perform 18 different operations on x,y based on these inputs
+    Hack ALU can perform 18 different operations on x,y based on these inputs
+    
     IN x[16], y[16], zx, nx, zy, ny, f, n0;
+    
     OUT out[16], zr, ng;
 
     PARTS:
 
-        /*
             xMUX0 = x if zx = 0         yMUX0 = y if zy = 0
                     0 if zx = 1                 0 if zy = 1
 
@@ -43,17 +44,8 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
                      └────────┬───────┘           └────────┬───────┘
                               │                            │   
                               p                            q
-        */
-        // First pass (x,0) and (y,0) to two different MUXs
-        Mux16(a=x, b=false, sel=zx, out=xMUX0);
-        Mux16(a=y, b=false, sel=zy, out=yMUX0);
-        // Taking BitWise-XOR of xMUX0 with nx to get p
-        bitWiseXor(a=xMUX0, b=nx, out=p);
-        // Taking BitWise-XOR of yMUX0 with ny to get q
-        bitWiseXor(a=yMUX0, b=ny, out=q);
+        
 
-
-        /*
                     p       q                    p       q      
                     ┼16     ┼16                  ┼16     ┼16
                 ┌───┴───────┴────┐           ┌───┴───────┴────┐
@@ -77,20 +69,8 @@ We used [nand2tetris](https://www.nand2tetris.org/) for writing hdl code
                                      └────────┬───────┘           
                                               │                             
                                              out                            
-        */
-        Adder16Bit(X=p,Y=q,S=pADDq); // p + q
-        And16(a=p, b=q, out=pANDq); // p & q
-        Mux16(a=pANDq, b=pADDq, sel=f, out=r); // (p + q)MUX(p & q)
-        bitWiseXor(a=r,b=n0,out[15]=signBit,out=out, out=outCopy); // out and outCopy are same
+        
 
-        // ng = 1 if out < 0
-        //    = 0 if out >= 0
-        // ng = out[15] = signBit
-        Xor(a=signBit, b=false, out=ng);
-
-        // zr = 1 if out = 0
-        //    = 0 if out != 0
-        zrCompute(out=outCopy, zr=zr);
     ```
 
         
